@@ -54,6 +54,12 @@ body{
 }
 ```
 
+> 우선순위
+> 1. inline css( htmlm style attribute)가 style tag나 css 파일보다 우선한다.
+> 2. 더 구체적인 selector가 덜 구체적인 selector보다 우선순위를 갖는다. (id>class)
+> 3. 만약 같은 우선순위를 갖는 css가 있다면 나중에 나온 것이 우선순위를 갖는다.
+
+
 ### 3. CSS파일 연결
 ```
 <link rel = "stylesheet" href = " practice.css" />
@@ -61,6 +67,8 @@ body{
 - < link > tag는 html 파일과 다른 파일을 연결하는 역할을 함.
 - rel = 연결하려는 파일의 특징을 나타낸다.
 - href에는 파일의 위치를 추가한다. 한 폴더 안에 두 파일이 있다면 파일명만 적으면 되지만 다른 폴더에 존재하는 경우 결로를 입력해야 연결이 된다.
+
+
 
 ### 4. 텍스트
 #### 1) 색상 : `color`
