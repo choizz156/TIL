@@ -99,7 +99,7 @@ p{
 }
 ```
 - 테두리 두께(`border-width`), 테두리 스타일(`border-style`), 테두리 색상(`border-color`) 등등 속성이 있다.
-##### 2) margin(바깥 여백), padding(안쪽 여백)
+##### 2) margin(바깥 여백), padding(콘텐츠와 테두리 사이 간격)
 ```
 p{
     margin : 10px 10px 10px 10px
