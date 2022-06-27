@@ -69,12 +69,72 @@ body{
 #### 3) 크기 : `font-size`
 - 절대 단위 : `px` ,pt 등
 - 상대 단위 : %, em ,`rem`, ch 등등
-#### 4) 굵기 : font-weight
-#### 5) 밑줄, 가로줄 : text-decoration
-#### 6) 글자 간격 : letter-spacing
-#### 7) 행간 : line-height
-#### 8) 정렬 : text-align
+#### 4) 굵기 : `font-weight`
+#### 5) 밑줄, 가로줄 : `text-decoration`
+#### 6) 글자 간격 : `letter-spacing`
+#### 7) 행간 : `line-height`
+#### 8) 정렬 : `text-align`
 - left, right, center, justify(양쪽)
 
 ### 5. box model
 - 웹 페이지 내의 콘텐츠들은 고유의 영역을 가지고 있다.
+[layout](http://tcpschool.com/html/html_space_layouts)
+#### 1) block vs inline vs inline block
+- block : 줄바꿈이 가능하고 크기 지정이 가능한 박스.
+- inline : 줄바꿈이 가능하지 않고 크기를 지정할 수 없는 박스.
+- inline-block : 줄바꿈이 일어나지 않고 block 박스의 특징을 가지는 박스.
+[https://developer.mozilla.org/en-US/docs/Web/HTML/Block-level_elements](https://developer.mozilla.org/en-US/docs/Web/HTML/Block-level_elements)
+[https://developer.mozilla.org/en-US/docs/Web/HTML/inline_elements](https://developer.mozilla.org/en-US/docs/Web/HTML/inline_elements)
+
+|    |block|inline-block|inline|
+|----|-----|------------|-------|
+|줄바꿈|o   |    x       |  x     |
+|기본 너비|100%|글자가 차지하는 만큼|글자가 차지하는 만큼|
+|크기조정|o|o|x|
+####  2) box 구성요소
+##### 1) border
+```
+p{
+    border : 1px solid black;
+}
+```
+- 테두리 두께(`border-width`), 테두리 스타일(`border-style`), 테두리 색상(`border-color`) 등등 속성이 있다.
+##### 2) margin(바깥 여백), padding(안쪽 여백)
+```
+p{
+    margin : 10px 10px 10px 10px
+    padding : 10px 10px 10px 10px
+}
+```
+- 각각 top, right, bottom, left 시계방향이다.
+
+```
+p{
+    margin : 10px 20px 
+    padding : 10px 20px 
+}
+```
+- top과 bottom, left와 right가 각각 10px와 20px이다.
+```
+p{
+    margin : 10px  
+    padding : 10px  
+}
+```
+- 값을 하나만 넣으면 사방에 여백이 적용된다.
+
+##### 3) box를 벗어나는 컨텐츠
+```
+p{
+overflow : auto;    
+}
+```
+- overflow 속성을 auto로 설정하면 컨첸츠가 box를 벗어나는 경우 스크롤을 생성한다.
+
+##### 4) 박스 크기 측정
+```
+*{
+    box-sizing : border-box;
+}
+```
+- 디자인을 할 때 여백을 고려하여 box의 크기를 디자인해야 한다.
