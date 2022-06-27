@@ -52,6 +52,7 @@
 <input type = "radio" name = "aaa">
 <input type = "checkbox">
 ```
+- 연습
 ```
 <!DOCTYPE html>
 <html>
