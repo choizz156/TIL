@@ -13,7 +13,7 @@
 - [Code Is Design](#code-is-design)
 - [Code Layout Matters](#code-layout-matters)
 - [Code Reviews](#code-reviews)  
-
+- [Coding with Reason](#coding-with-reason)
 
 
 ## Act with Prudence
@@ -65,3 +65,21 @@
 - Compact format
 ## Code Review
 - the purpose of code reviews should be to share knowledge and establish common coding guidelines.
+
+## Coding with Reason
+
+- The underlying approach is to divide all the code under consideration into short sections - form a single line, such as a functions call, to blocks of less than 10 lines -and argue about thier correctness.
+- A section should be chosen so that at each endpoint, the state of the program(namely, the program counter and the values of all "living" objects) satisfies an easily described property, and so that the functionality of that section(state transformation) is easy to describe as a single task.
+  
+      - Avoid using goto statements, ad they make remote sections highly interdependent.
+      - Avoid using modifiable global variables, as they make all section that use them dependent.
+      - Each variable should have the smallest possible scope. For example, a local object can be declared right before its first usage.
+      - make objects immutable whenever relevant.
+      - Make the code readable by using spacing, both horizontal and vertical - e,g, aligning related structrures and using an empty line to seperate two sections. 
+      - Make the code self-documenting by choosing descriptive (but relatively short) neames for objects, types, funtions, etc,
+      - If you need a nested section, make it a funtion.
+      - Make your funtions short and focused on a single task. The old 24 line limit still apply.
+      - Funtions should have few parameters (four is a good upper bound).
+      - Each unit of code, from a block to a library, should have a narrow interface. in other words. encapsulation is all - and only - about narrow interfaces.
+      - In order to preserve class invariants, usage of setters should be discouraged. 
+
