@@ -38,4 +38,3 @@ d
 - histroy : 지금까지 쳤던 명령어를 순서대로 보여줌.
 - histroy -c : 지금까지 쳤던 명령어를 clear함.
 - tab : 자동완성.
-dfdfdfdf
