@@ -14,7 +14,7 @@
 - [Code Layout Matters](#code-layout-matters)
 - [Code Reviews](#code-reviews)  
 - [Coding with Reason](#coding-with-reason)
-
+- [A Comment on Comments](#a-comment-on-comments)
 
 ## Act with Prudence
 
@@ -83,3 +83,7 @@
       - Each unit of code, from a block to a library, should have a narrow interface. in other words. encapsulation is all - and only - about narrow interfaces.
       - In order to preserve class invariants, usage of setters should be discouraged. 
 
+## A Comment On Comments
+- Part of the point of the assignment was to teach me that my code should explain itself to the next programer coming behind me.
+- Inside your code should be explanations about what the code si supposed to be doing.
+- Make sure that your comments clarify your code but do not obscure it.
