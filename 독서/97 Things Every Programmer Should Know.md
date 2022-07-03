@@ -15,7 +15,7 @@
 - [Code Reviews](#code-reviews)  
 - [Coding with Reason](#coding-with-reason)
 - [A Comment on Comments](#a-comment-on-comments)
-
+- [Comment Only What the Code Cannot Say](#comment-only-what-the-code-cannot-say)
 ## Act with Prudence
 
 ## Apply functional Programming Principles
@@ -87,3 +87,8 @@
 - Part of the point of the assignment was to teach me that my code should explain itself to the next programer coming behind me.
 - Inside your code should be explanations about what the code si supposed to be doing.
 - Make sure that your comments clarify your code but do not obscure it.
+
+## Comment Only What the Code Cannot Say
+- Each comment should add some value for the reader, otherwise it is waste that should be removed or rewritten.
+- Try to express as much as possible through code.
+- Comment what the code cannot say, not simply what it does not say.
