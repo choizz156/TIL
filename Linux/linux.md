@@ -10,7 +10,7 @@
     - GNU 정신에 따라 변경한 내용도 공개해야 함.
     - 사용자를 위한 다양한 공개 문서 및 지원 사이트 존재.
 
-## 필수 개념과 명령어
+## 필수 개념
 ### 시작과 종료
 - 종료하는 방법 : `shutdown -P now`, `halt -p` , `init 0`
 - 시스템 재부팅 : `shutdown -r now`, `reboot` , `init 6`
@@ -55,10 +55,110 @@ d
   [vi 단축키](https://iamfreeman.tistory.com/entry/vi-vim-%ED%7E%B8%EC%A7%91%EA%B8%B0-%EB%AA%85%EB%A0%B9%EC%96%B4-%EC%A0%95%EB%A6%AC-%EB%8B%A8%EC%B6%95%ED%82%A4-%EB%AA%A8%EC%9D%8C-%EB%AA%A9%EB%A1%9D)
   
 ### 도움말, mount, cd/dvd 및 usb 메모리 연결
-- man 명령어를 입력하면 도움말이 출력된다.
+- man : 명령어를 입력하면 도움말이 출력된다.
+     
+      man command_name
+      man -k(keyword) keyword_0f_command
+- man의 결과 화면 보는 법
+  - 숫자 : (1) command, (2) system call, (3) library function
+  - [] : option
+  - FILE : 이곳에다 파일이름을 쓰세요.
+  - ... : 반복
+----
 - mount : 물리적인 장치를 특정한 위치(디렉터리)에 연결시켜주는 과정
   - cd/dvd mount : `mount dev/cdrom(대부분의 리눅스에서 cd를 연결시켜주는 링크)`
   - cd/dvd mount 해제 : 디렉토리를 사용자 디렉토리로 옮기고(cd 입력) `umount /dev/cdrom`을 입력하여 마운트 해제
   - usb mount : `mount /dev/sdb0(리눅스에서 usb장치 이름) /media/usb(직접만든 디렉토리)/`
   - usb mount 해제 : 디렉토리를 사용자 디렉토리로 옮기고 `umount /dev/sdb0(usb이름)`
 
+## 리눅스 경로
+- 파일명 및 경로명
+  - 파일명
+    - 대소문자 구분.
+    - .으로 시작되는 파일명은 시스템 파일이 많기 때문에 사용하지 않는 것이 바람직하다.
+  - 경로명
+    - 절대 경로 : 루트 디렉토리(/)부터의 파일 위치.
+      - /root/uesr/...
+    - 상대 경로 : 현재 디렉토리로부터의 파일 위치.
+      - `.` : 현재 디렉토리 .
+      - `..` : 부모 디렉토리.
+## 기본 명령어
+### pwd(print working Directory)
+- 현재 작업 디렉토리를 출력.
+### cat(concatenate)
+- 표준 입력(키보드) 또는 파일로 부터 입력 받아 이를 표준 출력(화면)에 표시한다.
+- 리다이렉션(>)을 통해 파일 생성에 사용할 수 있다.
+
+      cat [-n(출력에 줄 번호 표시)] FILE
+> cat > file1 // 표준 입력을 file1에 저장
+> <br/>
+> abdf
+> <br/>
+> ^d
+
+> cat -n file1
+> <br/>
+> 1 abdf
+### control C
+- 프로세스의 종료.
+  - 작업 완료 이전에 프로세스를 강제로 종료시킴.
+### control D
+- 입력 완료.
+### ls (list segment)
+- 디렉토리 목록을 리스트 해줌.
+
+  
+    ls [-adlR] FILE or DIRECTORY
+    ls 뒤에 파일명을 적으면 그 파일에 대한 정보만 보여주고 디렉토리를 적으면 디렉토리 내의 파일들을 보여줌.
+
+     - a : 숨겨진 파일 나열.
+     - d : 디렉토리 자체의 정보.
+     - l : 허가, 소유, 최종변경일자를 포함하는 긴 목록 제공.
+     - R : 디렉토리의 내용과 그 서브 디렉토리의 내용을 재귀적으로 제공(나열).
+### cd(chage directory)
+
+    cd DIRECTORY(절대경로,상대경로)
+    디렉토리를 입력하지 않는 경우 사용자의 홈 디렉토리로 이동
+### mkdir(make directory)
+
+    mkdir DIRECTORY
+- 절대 경로를 사용하지 않을 경우 현재 디렉토리에 하위 디렉토리가 만들어짐.
+
+### head/tail
+- head : 파일의 처음 n줄을 출력
+
+      head [-n(n 번째 라인까지 출력,디폴트는 10)] FILE
+- tail : 파일의 마지막 n 줄부터 출력
+
+      tail [-n(마지막 줄에서 부터 n번째 라인의 줄부터 출력] FILE
+
+### mv(move)
+- 파일의 이름 변경 및 이동
+
+      mv [-i(새로운 파일 이름이 이미 존재하는 경우를 위한 확인 프로프트 생성)] OLD_FILE NEW_FILE // 이전 파일을 새로운 파일로 이름변경
+      mv [-i] FILE DIRECTORY // 파일을 디렉토리로 이동
+      mv [-i] OLD_DIR NEW_DIR // 이전 디렉토리를 새로운 디렉토리로 이름 변경
+- 경로 적으면 경로 이동을 하면서 이름도 변경할 수 있음.
+
+### cp(copy)
+- 파일 복사
+
+        cp [-i(이미 존재하는 경우를 위한 확인)] OLD_FILE NEW_FILE
+        cp [-r] OLD_DIRECTORY NEW_DIRECTORY
+        -r : 이전 디렉토리에 있는 모든 파일과 서브디렉토리를 재귀적으로 새로운디렉토리에 복사.
+### rm(remove)
+- 파일 삭제
+
+      rm [-fir] FILE
+      -f : 어떤 에러 메시지나 지시 사항도 나타내지 않는다
+      -r : 서브 디렉토리를 포함한 모든 내용을 삭제한다.
+      -i : 파일 삭제 전 사용자에게 확인 요구
+
+### rmdir(remove directory)
+- 디렉토리 제거
+          
+        rmdir DIRECTORY
+        디렉토리내가 비어있어야 디렉토리가 제거된다.
+        rm -r DIRECTORY
+        디렉토리 안의 모든 내용을 함께 삭제한다.
+    
