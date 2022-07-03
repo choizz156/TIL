@@ -61,4 +61,4 @@ d
   - cd/dvd mount 해제 : 디렉토리를 사용자 디렉토리로 옮기고(cd 입력) `umount /dev/cdrom`을 입력하여 마운트 해제
   - usb mount : `mount /dev/sdb0(리눅스에서 usb장치 이름) /media/usb(직접만든 디렉토리)/`
   - usb mount 해제 : 디렉토리를 사용자 디렉토리로 옮기고 `umount /dev/sdb0(usb이름)`
->>>>>>> Stashed changes
+
