@@ -162,4 +162,32 @@ shutdown -h +3 : 3분후에 꺼진다.
         디렉토리내가 비어있어야 디렉토리가 제거된다.
         rm -r DIRECTORY
         디렉토리 안의 모든 내용을 함께 삭제한다.
+
+-----------
+## 사용자와 그룹
+- 리눅스는 다중 사용자 시스템(Multi-User System)임.
+- 기본적으로 root라는 이름을 가진 수퍼유저(superuser)가 있으며, 모든 작업을 할 수 있는 권한이 있다.
+- 모든 사용자는 하나 이상의 그룹에 소속돼 있음.
+- 사용자는 /etc/passwd 파일에 저장돼 있음
+> 사용자이름:암호:사용자id:사용자가 소속된 그룹:전체 이름:홈 디렉터리:기본셀 
+- 사용자 비밀번호는 /etc/shadow에 있음
+- 그룹은 /etc/group
+- 처음에 group을 만들면 기본값으로 사용자명으로 그룹이 만들어 진다.
+> 그룹명:비밀번호:그룹id:그룹에 속한 사용자명
+
+### 사용자와 그룹 관련 명령어
+- `useradd` : 새로운 사용자를 추가 /# useradd user1
+- `passwd` : 사용자의 비밀번호를 지정하거나 변경 /# passwd uer1
+- `uermod` : 사용자의 속성을 변경 /#usermod -g root user1
+- `userdel` : 사용자를 삭제 /# userdel user1
+- `chage` : 사용자의 암호를 주기적으로 변경하도록 설정 /# chage -m 2 user1
+- `groups` : 현재 사용자가 속한 그룹을 보여줌 /# groups
+- `groupadd` : 새로운 그룹 생성 /# groupadd newgroup
+- `groupmod` : 그룹의 속성을 변경 /# gruopmod -n new group mygroup
+  - 사용자 생성시 옵션
+    - -u : id 지정
+    - -g : 그룹 지정
+    - -d : 홈 디렉터리 지정
+    - -s : 셀 지정
+ 
     
