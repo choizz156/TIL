@@ -1,4 +1,4 @@
-#목차
+# 목차
 - [java의 특징](#java의-특징)
 - [JVM과 JDK](#jvm과-jdk)
 - [Method(=function)](#methodfunction)
