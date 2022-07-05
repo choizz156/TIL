@@ -16,6 +16,8 @@
 - [Coding with Reason](#coding-with-reason)
 - [A Comment on Comments](#a-comment-on-comments)
 - [Comment Only What the Code Cannot Say](#comment-only-what-the-code-cannot-say)
+- [Continuous Learning](#continuous-learning)
+- [Convenience Is Not an -illty](#convenience-is-not-an--illty)
 ## Act with Prudence
 
 ## Apply functional Programming Principles
@@ -92,3 +94,25 @@
 - Each comment should add some value for the reader, otherwise it is waste that should be removed or rewritten.
 - Try to express as much as possible through code.
 - Comment what the code cannot say, not simply what it does not say.
+
+## A Comment On Comments
+- Part of the point of the assignment was to teach me that my code should explain itself to the next programer coming behind me.
+- Inside your code should be explanations about what the code si supposed to be doing.
+- Make sure that your comments clarify your code but do not obscure it.
+
+## Comment Only What the Code Cannot Say
+- Each comment should add some value for the reader, otherwise it is waste that should be removed or rewritten.
+- Try to express as much as possible through code.
+- Comment what the code cannot say, not simply what it does not say.
+## Continuous Learning
+- You need to keep learning to stay marketable.
+- you need to take responsibility for your own education.
+- You can learn a whole lot more from someone smarter or more experienced.
+- Use the debugger to step through the code to see what's going on under the hood.
+- Google is really useful.
+- A good way to learn something is to teach ro speak about it.
+## Convenience Is Not an -illty
+- Being aware of the guiding principles does not automatically translate into appropriate behavior.
+Eating sweets is bad for you.
+- A composable vocabulary allows other programmers to use the API in ways you may not have anticipated- a great convenievnce indeed for the uesrs of the API
+- you are tempted to lump a few things together into one for sdfsdfsdfsdfsdfsdf,even though it would ve really convenient for such a frequently requested opreation.
