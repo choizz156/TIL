@@ -1,3 +1,26 @@
+#목차
+- [java의 특징](#java의-특징)
+- [JVM과 JDK](#jvm과-jdk)
+- [Method(=function)](#methodfunction)
+  - [Method invoke](#method-invoke)
+  - [Main method](#main-method)
+- [Variable and Type](#variable-and-type)
+  - [Variable](#variable)
+- [String](#string)
+  - [String 타입과 변수 선언과 할당](#string-타입의-변수-선언과-할당)
+  - [String 클래스의 메서드](#string-클래스의-메서드)
+- [StringToKenizer](#stringtokenizer)
+- [StringBuilder, StringBuffer](#stringbuilder-stringbuffer)
+  - [StringBuilder](#stringbuilder)
+  - [StringBuffer](#stringbuffer)
+- [연산자](#연산자)
+  - [산술연산자](#산술연산자)
+  - [증감연산자](#증감연산자)
+  - [복합 대입 연산자](#복합-대입-연산자)
+- [콘솔 입출력](#콘솔-입출력)
+  - [콘솔 출력](#콘솔-출력)
+  - [콘솔 입력](#콘솔-입력)
+
 ## java의 특징
 
 - 운영체제에 독립적이다.
@@ -420,3 +443,28 @@ System.out.println(str2.capacity)(); // 20
 
 - 동기화 
 > 여러개의 스레드가 한개의 자원에 접근하려고 할 때, 현재 데이터를 사용하고 있는 스레드를 제외하고 나머지 스레드들이 데이터에 접근할 수 없도록 막는 역할.
+
+### 비교 연산자
+### 대소 비교 연산자
+> `>`,`<=`,`>`,`>=`
+### 등가 비교 연산자
+> `==`,`!=`(not)
+### 논리 연산자
+> `&&`,`||`,`^`(xor),`!`(not)
+### 연산자 우선순위
+[http://www.tcpschool.com/codingmath/priority](http://www.tcpschool.com/codingmath/priority)
+-------
+## 콘솔 입출력
+### 콘솔 출력
+> System.out.println() : 소괄호 안의 내용을 콘솔에 출력하고 줄바꿈을 합니다.
+> System.out.print() : 소괄호 안의 내용을 단순히 출력하기만하고, 줄바꿈을 하지 않습니다.
+> System.out.printf() : 지시자를 이용해 변수의 값을 여러 형식으로 출력해주는 메서드.
+### 콘솔 입력
+```
+import java.util.Scanner;
+
+Scanner scanner = new Scanner(System.in);
+String inputValue = scanner.nextLine();
+
+```
+
