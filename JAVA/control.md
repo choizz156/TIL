@@ -9,8 +9,8 @@
   - [for](#for)
   - [while](#while)
   - [do while](#do-while)
-- [break](#break)
-- [continue](#continue)
+  - [break](#break) 
+  - [continue](#continue)
 
 # Control Folw Statement(제어문)
 
@@ -249,7 +249,7 @@ for (int i = 0; ; i++)
 // 조건부가 없어서 항상 참이므로 무한반복된다.
 ```
 
-## while
+### while
 
 > 조건이 거짓일 때까지 while안의 블럭을 계속 실행(`조건에 따라 반복해야 할때`).
 
@@ -278,7 +278,7 @@ boolean a = true;
     }
 ```
 
-## do while
+### do while
 
 > 한 번 실행한 후 조건식이 참이면 거짓이 나올 때까지 while 블럭 반복.(`무조건  한 번은 수행한다.`)
 
@@ -292,7 +292,7 @@ int i = 5;
     } while (i < 5);
 ```
 
-## break
+### break
 
 > 반복문이나 조건문에서 조건이 충족되면 빠져나오게 한다.
 
@@ -311,7 +311,7 @@ Outer :for (int i = 3; i < 10; i++) {
 
 ```
 
-## while
+### continue
 
 > 반복문에서 조건이 맞다면 아래의 코드를 수행하지 않고 바로 증감으로 넘어간다.
 
