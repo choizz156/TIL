@@ -6,11 +6,11 @@
     - [fall through (중복 코드 방지)](#fall-through-중복-코드-방지)
 - [삼항 연산](#삼항-연산)
 - [반복문](#반복문)
-  - [for](#for)
-  - [while](#while)
-  - [do while](#do-while)
-  - [break](#break) 
-  - [continue](#continue)
+    - [for](#for)
+    - [while](#while)
+    - [do while](#do-while)
+    - [break](#break)
+    - [continue](#continue)
 
 # Control Folw Statement(제어문)
 
