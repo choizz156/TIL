@@ -1,3 +1,10 @@
+# 목차
+- [if](#if)
+  - [else if](#else-if)
+- [Switch](#switch)
+  - [fall through (중복 코드 방지)](#fall-through-중복-코드-방지)
+- [삼항 연산](#삼항-연산) 
+
 # Control Folw Statement(제어문)
 
 ## 조건문
@@ -55,7 +62,7 @@ int i = 5;
   여러개의 statement를 가지기 위해 `{}`블록을 한다.
 
 
-- else if
+### else if
     - if나 else-if 블록 중 하나만 실행한 후 빠져나간다.
     - 상이한 조건 여러개 중 하나만 특정 조건에 참이되는 케이스에
       사용하기 좋다.
@@ -129,7 +136,9 @@ int i = 5;
 - break문을 쓰지 않으면 제어문을 빠져나가지 않아 바로 아래의
   statement도 모두 출력된다.(`fall through)`
 
-> fall through (중복 코드 방지)
+
+
+### fall through (중복 코드 방지)
 
 ```jshelllanguage
 int number = 2;
