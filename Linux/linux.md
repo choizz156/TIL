@@ -236,4 +236,4 @@ shutdown -h +3 : 3분후에 꺼진다.
   - GPG키 검사 생략
     - `dnf install --nogpgcheck rpm파일이름.rpm`
     - centos8에서 인증되지 않은 패키지를 강제로 설치할 때 사용
-    - 기존 저장소 목록 지우기 : `dnf clean all`
+   - 기존 저장소 목록 지우기 : `dnf clean all`
