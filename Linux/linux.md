@@ -216,3 +216,24 @@ shutdown -h +3 : 3분후에 꺼진다.
 - 파일의 링크에는 하드링크(hard link)와 심볼릭 링크(symbolic link or soft link) 2가지가 있음.
   - 하드 링크를 생성하면 '하드링크파일'만 하나 생성되며 원본파일과 같은 inode1을 사용 /# ln 링크대상파일이름 링크파일이름
   - 심볼릭 링크를 생성하면 새로운 inode2를 만들고, 데이터는 원본 파일을 연결하는 효과/# ln -s 링크대상파일이름 링크파일이름
+-------------
+## 패키지 설치
+- DNF(Dandified dnf) 개념
+  - rpm 명령의 패키지 의존성 문제를 완전하게 해결함.
+  - 인터넷을 통하여 필요한 파일을 저장소(Repository)에서 자동으로 모두 다운로드해서 설치하는 방식.
+  - CentOS 7은 YUM, CentOS 8은 YUM이 개선된 DNF명령을 사용.
+  - 저장소 : `/etc/yum.repos.d/`
+
+- dnf 기본적인 사용법
+  - 기본 설치 : `dnf install 패키지이름`
+    - -y옵션은 사용자의 확인을 모두 yes로 간주하고 설치를 진행
+- rpm 파일 설치 : `dnf install rpm파일이름.rpm`
+- 삭제 : `dnf remove 패키지이름`
+- 정보 확인 : `dnf info 패키지이름`
+- dnf 추가 사용법
+  - 패키지 그룹 설치 : `dnf groupinstall "패키지그룹이름"`
+  - 패키지 리스트 확인 : `dnf list 패키지이름`
+  - GPG키 검사 생략
+    - `dnf install --nogpgcheck rpm파일이름.rpm`
+    - centos8에서 인증되지 않은 패키지를 강제로 설치할 때 사용
+    - 기존 저장소 목록 지우기 : `dnf clean all`
