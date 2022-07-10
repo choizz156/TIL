@@ -1,11 +1,12 @@
 # 목차
+
 - [클래스(class)](#클래스class)
 - [객체(Object,Instance)](#객체objectinstance)
 - [필드](#필드)
 - [static](#static)
 - [메서드(method)](#메서드method)
-  - [메서드 호출](#메서드-호출)
-    - [메서드 오버로딩](#메서드-오버로딩)
+    - [메서드 호출](#메서드-호출)
+        - [메서드 오버로딩](#메서드-오버로딩)
 
 ## 객체지향 프로그램(Object-Oriented Programming)
 
@@ -259,8 +260,9 @@ class Example {
 ### 메서드 오버로딩
 
 > 하나의 클래스 안에 같은 이름의 메서드를 여러개 정희하는 것이다.
-><br/>
+> <br/>
 > 하나의 메서드로 여러 경우의 수 해결 가능.
+
 - 조건
     - 메서드의 이름이 같아야 함.
     - 매개변수의 개수 또는 타입이 달라야함.
@@ -295,3 +297,81 @@ class Example {
 
     }
 ```
+
+## 생성자
+
+> 인스턴스가 생성될 때 호출되는 인스턴스 초기화 메서드
+
+- 생성자의 이름은 반드시 크래스의 이름과 같아야 한다.
+- 생성자는 리턴 타입이 없다.
+- 오버로딩이 가능해서 클래스 내에 여러 개의 생성자가 존재할 수 있다.
+
+```java
+public class ConstructorEx {
+    public static void main(String[] args) {
+        Constructor cons1 = new Constructor();
+        Constructor cons2 = new Constructor("Hello World");
+        Constructor cons3 = new Constructor(5, 10);
+    }
+}
+
+class Constructor {
+    Constructor() { //생성자 오버로딩
+        System.out.println("1번");
+    }
+
+    Constructor(String str) { // (2) 
+        System.out.println("2번");
+    }
+
+    Constructor(int a, int b) { // (3) 
+        System.out.println("3번");
+    }
+}
+
+```
+
+### 기본 생성자
+
+> 매개변수가 없는 생성자.
+
+- 모든 클래스에는 반드시 하나 이상의 생성자가 존재해야 함.
+- 클래스 안에 생성자가 없는 경우 자바 컴파일러가 기본 생성자를 자동으로 추가.
+- 생성자가 추가돼 있다면 그 생성자를 기본으로 사용.
+- 매개변수가 있는 경우 개수와 타입에 맞게 생성자를 호출해줘야 함.
+
+## this() vs this
+
+### this()
+
+> 자신이 속한 클래스에서 다른 생성자를 호출하는 경우에 사용.
+
+- 반드시 생성자의 내부에서만 사용할 수 있다.
+- 반드시 생성자의 첫 줄에 위치해야 한다.
+
+```jshelllanguage
+
+    class Example {
+        public Example() {
+            System.out.println("기본 생성자");
+        };
+
+        
+
+        public Example(int x) {
+            this();
+            System.out.println("두 번째 생성자 호출");
+        }
+    }
+
+    //Output
+         기본 생성자 호출!
+         기본 생성자 호출!
+         생성자 호출!
+```
+### this
+> 인스턴스 변수와 이름만으로 구분하기 어려울 때(멤버 변수,지역변수), 이를 구분해주기 위한 용도로 사용.
+- 모든 메서드에는 자신이 포함된 클래스의 객체를 가리키는 this라는 참조변수가 있는데,
+일반적인 경우에 컴파일러가 this.을 추가해주기 때문에 생략하는 경우가 많다.
+- this는 인스턴스 자신을 가리키는 것이다. 
+- 지역 변수와 필드 몯를 사용할 수 있는 영역에서는 사용 범위가 좁은 변수 즉, 지역 변수로 인식한다.
