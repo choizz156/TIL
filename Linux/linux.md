@@ -212,7 +212,7 @@ shutdown -h +3 : 3분후에 꺼진다.
 - chown/chgrp
   - 파일의 소유권을 바꾸는 명령어/# chown centos text.txt/#chgrp centos test.txt
 
-### 링크[블로그 정보](https://www.leafcats.com/141)
+### 링크([블로그 정보](https://www.leafcats.com/141))
 - 파일의 링크에는 하드링크(hard link)와 심볼릭 링크(symbolic link or soft link) 2가지가 있음.
   - 하드 링크를 생성하면 '하드링크파일'만 하나 생성되며 원본파일과 같은 inode1을 사용 /# ln 링크대상파일이름 링크파일이름
   - 심볼릭 링크를 생성하면 새로운 inode2를 만들고, 데이터는 원본 파일을 연결하는 효과/# ln -s 링크대상파일이름 링크파일이름
