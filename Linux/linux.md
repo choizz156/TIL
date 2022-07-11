@@ -237,3 +237,32 @@ shutdown -h +3 : 3분후에 꺼진다.
     - `dnf install --nogpgcheck rpm파일이름.rpm`
     - centos8에서 인증되지 않은 패키지를 강제로 설치할 때 사용
    - 기존 저장소 목록 지우기 : `dnf clean all`
+---------------
+## 파일 압축과 묶기
+- 압축과 묶기가 나누어져 있다.
+### 파일 압축
+  - xz, bz2, gz, zip, Z 등
+  - xz, bz2 압축률이 더 좋음
+- 관련 명령어
+  - xz : /# `xz 파일명`, `xz -d 파일명.xz`(삭제)
+  - bzip2 : /# `bzip2 파일명`, `bzip2 -d 파일명.bz2`
+  - gzip : /# `gzip 파일명`, `gzip -d 파일명.gz`
+  - 압축이 되면 보통 압축한 파일이 없어진다. (zip제외, zip은 윈도우 호환성)
+### 파일 묶기
+  - 명령어도 tar이고 묶인 파일 확장명도 tar이다.
+- 명령어
+  - tar : tar로 묶음 파일을 만들어 주거나 묶음 파일을 압축한다.
+    - 동작 : c(묶기), x(풀기), t(경로 확인)
+    - 옵션 : f(파일), v(과정 보이기),J(tar+xz), z(tar+gzip), j(tar+bzip2)
+  - 묶기 : /# tar cvf my.tar /etc/sysconfig 
+  - 묶기 + 압축 : /# tar cvfJ my.tar.xz 묶고압축할파일이름(폴더이름)
+  - 풀기 : /# tar xvf my.tar
+  - 압축해제 + 묶기 풀기 : /# tar xvfJ mytar.xz 폴더이름
+### 파일 위치 검색
+- 기본 파일 찾기 : find [경로] [옵션] [조건] [action]
+  - 옵션 : -name, -user(소유자), -newer(전,후), -perm(허가권), -size(크기)
+  - action : -print(디폴트), _exec(외부명령실행)
+    - /# find /home -name "*.swp" `-exec(시작) rm(외부명령) {(여기에 앞에 찾은 파일이 들어감}) \:(끝)`
+  - which [실행파일이름] : PATH에 설정된 디렉터리만 검색
+  - whereis [실행파일이름] : 실행 파일, 소스, man페이지 파일까지 검색
+  - loacte [파일이름] : 파일 목록 데이터베이스에서 검색
