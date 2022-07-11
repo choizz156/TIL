@@ -18,6 +18,7 @@
 - [Comment Only What the Code Cannot Say](#comment-only-what-the-code-cannot-say)
 - [Continuous Learning](#continuous-learning)
 - [Convenience Is Not an -illty](#convenience-is-not-an--illty)
+- [Do Lots of Deliberate Practice](#do-lots-of-deliberate-practice)
 ## Act with Prudence
 
 ## Apply functional Programming Principles
@@ -116,3 +117,12 @@
 Eating sweets is bad for you.
 - A composable vocabulary allows other programmers to use the API in ways you may not have anticipated- a great convenievnce indeed for the uesrs of the API
 - you are tempted to lump a few things together into one for sdfsdfsdfsdfsdfsdf,even though it would ve really convenient for such a frequently requested opreation.
+
+## Do Lots of Deliberate Practice
+- Deliberate practice is not simply performing a task.
+- you do deliberate practice to improve your ability to perform a task.
+- Deliberate practice means repetition.
+- It means performing the task with tha aim of increasing your mastery of one or more aspects of the task.
+- Deliberate practice means practicing something you are not good at.
+- Challenging yourself with a task that is just beyond your current ability,trying it, analyzing your performance
+while and after doing it and correcting any mistakes.
