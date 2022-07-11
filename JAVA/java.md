@@ -433,13 +433,13 @@ System.out.println(str2.capacity)(); // 20
 ### String, StringBuilder, StringBuffer
 
 - String
-> String은 불변성을 갖기 때문에 변하지 않는 문자열을 자주 사용할 경우.
+> String은 불변성을 갖기 때문에 변하지 않는 문자열을 자주 사용할 경우.(thread-safe)
 - StringBuilder 
-> 동기화를 지원하지 않는 반면 StringBuffer보다 성능이 높다.
+> 동기화를 지원하지 않는 반면 StringBuffer보다 성능이 높다.(not thread-safe)
 ><br/>
 > 단일스레드 환경 문자열의 추가 수정 삭제 등이 빈번히 발생하는 경우.
 - StringBuffer
->동기화를 지원하여 멀티 스레드 환경에서도 안전하게 동작할 수 있다.
+>동기화를 지원하여 멀티 스레드 환경에서도 안전하게 동작할 수 있다.(thread-safe)
 
 - 동기화 
 > 여러개의 스레드가 한개의 자원에 접근하려고 할 때, 현재 데이터를 사용하고 있는 스레드를 제외하고 나머지 스레드들이 데이터에 접근할 수 없도록 막는 역할.
