@@ -357,9 +357,10 @@ class Constructor {
     class Example {
         public Example() {
             System.out.println("기본 생성자");
-        };
+        }
 
-        
+        ;
+
 
         public Example(int x) {
             this();
@@ -368,13 +369,353 @@ class Constructor {
     }
 
     //Output
-         기본 생성자 호출!
-         기본 생성자 호출!
-         생성자 호출!
+    기본 생성자 호출!
+        기본 생성자 호출!
+        생성자 호출!
 ```
+
 ### this
+
 > 인스턴스 변수와 이름만으로 구분하기 어려울 때(멤버 변수,지역변수), 이를 구분해주기 위한 용도로 사용.
+
 - 모든 메서드에는 자신이 포함된 클래스의 객체를 가리키는 this라는 참조변수가 있는데,
-일반적인 경우에 컴파일러가 this.을 추가해주기 때문에 생략하는 경우가 많다.
-- this는 인스턴스 자신을 가리키는 것이다. 
+  일반적인 경우에 컴파일러가 this.을 추가해주기 때문에 생략하는 경우가 많다.
+- this는 인스턴스 자신을 가리키는 것이다.
 - 지역 변수와 필드 몯를 사용할 수 있는 영역에서는 사용 범위가 좁은 변수 즉, 지역 변수로 인식한다.
+
+-----------------------------------
+
+## 상속
+
+> 기존 클래스를 재사용하여 새로운 클래스를 작성하는 것.
+> 상위 클래스의 멤버를 하위 클래스와 공유하는 것으로 서로 `상속관계(ia a~)`에 있다고 하며, 하위 클래스는 상위클래스가 가진 모든 멤버를 상속받는다.
+
+- 하위 클래스으 멤버 개수는 항상 상위 클래스의 멤버보다 같거나 많다.
+- `extends`키워드를 사용한다.
+- 상속을 사용하면 코드를 재사용하여 보다 적은 양의 코드로 새로운 클래스를 작성할 수 있어 `코드의 중복을 제거`할 수 있다.
+- 다형적 표현을 가능하게 한다.
+- 단일상속만 가능하다.
+
+```java
+class Person {
+    String name;
+    int age;
+
+    void learn() {
+        System.out.println("공부를 합니다.");
+    }
+
+    ;
+
+
+}
+
+class Programmer extends Person { // Person 클래스로부터 상속. extends 키워드 사용 
+    String companyName;
+
+    void coding() {
+        System.out.println("코딩을 합니다.");
+    }
+
+    ;
+}
+
+class Dancer extends Person { // Person 클래스로부터 상속
+    String groupName;
+
+    void dancing() {
+        System.out.println("춤을 춥니다.");
+    }
+
+    ;
+}
+
+class Singer extends Person { // Person 클래스로부터 상속
+    String bandName;
+
+    void singing() {
+        System.out.println("노래합니다.");
+    }
+
+    ;
+
+    void playGuitar() {
+        System.out.println("기타를 칩니다.");
+    }
+
+    ;
+}
+
+public class HelloJava {
+    public static void main(String[] args) {
+
+        //Person 객체 생성
+        Person p = new Person();
+        p.name = "김코딩";
+        p.age = 24;
+        p.learn();
+
+
+        System.out.println(p.name);
+
+        //Programmer 객체 생성
+        Programmer pg = new Programmer();
+        pg.name = "박해커";
+        pg.age = 26;
+
+        pg.coding(); // Programmer의 개별 기능
+        System.out.println(pg.name);
+
+    }
+}
+
+    //출력값
+    공부를 합니다.
+        김코딩
+        공부를 합니다.
+        코딩을 합니다.
+        박해커
+```
+
+- Person클래스로 부터 확장되어 Person클래스에 있는 속성과 기능들을 사용할 수 있다.
+
+### 포함 관계
+
+> 클래스를 재사용하는 방법으로, 클래스의 멤버로 다른 클래스의 타입의 참조변수를 선언하는 것.
+
+```java
+public class Employee {
+    int id;
+    String name;
+    Address address;
+
+    public Employee(int id, String name, Address address) {
+        this.id = id;
+        this.name = name;
+        this.address = address;
+    }
+
+    void showInfo() {
+        System.out.println(id + " " + name);
+        System.out.println(address.city + " " + address.country);
+    }
+
+    public static void main(String[] args) {
+        Address address1 = new Address("서울", "한국");
+        Address address2 = new Address("도쿄", "일본");
+
+        Employee e = new Employee(1, "김코딩", address1);// Address 타입에 객체가 들어간다.
+        Employee e2 = new Employee(2, "박해커", address2);
+
+        e.showInfo();
+        e2.showInfo();
+    }
+}
+
+class Address {
+    String city, country;
+
+    public Address(String city, String country) {
+        this.city = city;
+        this.country = country;
+    }
+}
+
+// 출력값
+1김코딩
+        서울 한국
+        2박해커
+        도쿄 일본
+```
+
+- Address 클래스로 해당 변수들을 묶어준다음 Employee 클래스의 안에 참조변수를 선언하는 방식(has a-)으로
+  코드의 중복을 없애고 재사용한다.
+
+### 메서드 오버라이딩(Method Overriding)
+
+> 상위 클래스로부터 상속받은 메서드와 동일한 이름의 메서드를 재정의 하는 것.
+
+- 세가지 조건
+    - 메서드의 선언부(메서드 이름,매개변수, 반환타입)이 상위 클래스와 일치해야 한다.
+    - 접근 제어자의 번위가 상위 클래스의 메서드보다 같거나 넓어야 한다.
+    - 예외는 상위 클래스의 메서드보다 많이 선언할 수 없다.
+
+```jshelllanguage
+class Vehicle {
+    void run() {
+        System.out.println("Vehicle is running"
+
+
+        );
+    }
+}
+
+    public class Bike extends Vehicle { // Vehicle 클래스 상속
+        void run() {
+            System.out.println("Bike is running"
+
+
+            ); // 메서드 오버라이딩
+        }
+
+        public static void main(String[] args) {
+            Bike bike = new Bike();
+            bike.run();
+        }
+    }
+
+// 출력값
+    "Bike is running"
+```
+
+- 상위 클래스와 메서드 명이 같지만 다른 일을 한다.
+
+```jshelllanguage
+public class Main {
+    public static void main(String[] args) {
+        Bike bike = new Bike(); // 각각의 타입으로 선언 + 각각의 타입으로 객체 생성
+        Car car = new Car();
+        MotorBike motorBike = new MotorBike();
+
+        bike.run();
+        car.run();
+        motorBike.run();
+
+        Vehicle bike2 = new Bike(); // 상위 클래스 타입으로 선언 + 각각 타입으로 객체 생성
+        Vehicle car2 = new Car();
+        Vehicle motorBike2 = new MotorBike();
+
+        bike2.run();
+        car2.run();
+        motorBike2.run();
+    }
+}
+
+    class Vehicle {
+        void run() {
+            System.out.println("Vehicle is running");
+        }
+    }
+
+    class Bike extends Vehicle {
+        void run() {
+            System.out.println("Bike is running");
+        }
+    }
+
+    class Car extends Vehicle {
+        void run() {
+            System.out.println("Car is running");
+        }
+    }
+
+    class MotorBike extends Vehicle {
+        void run() {
+            System.out.println("MotorBike is running");
+        }
+    }
+
+    // 출력값
+    Bike is running
+    Car is running
+    MotorBike is running
+```
+
+- 모든 객체를 상위 클래스 타입 하나로 선언하면 간편하게 배열로 선언하여 관리할 수 있다.
+
+```jshelllanguage
+// 배열로 한번에 관리하기
+
+    Vehicle[] vehicles = new Vehicle[]{new Bike(), new Car(), new MotorBike()};
+    for (Vehicle vehicle : vehicles) {
+        vehicle.run();
+    }
+
+    // 출력값
+    Bike is running
+    Car is running
+    MotorBike is running
+```
+
+- 메서드 오버라이딩이 된다면 일일이 객체를 만들고 run메서드를 실행하지 않아도 한꺼번에 같은 결과를 출력할 수 있다.
+
+### super와 super()
+
+> super는 상위 클래스의 객체, super()는 상위 클래스의 생성자를 호출. (this와 비슷)
+
+- 상위 클래스의 존재를 상정해서 상속 관계를 전제로 한다.
+
+```jshelllanguage
+   public class Super {
+    public static void main(String[] args) {
+        Lower l = new Lower();
+        l.callNum();
+    }
+}
+
+    class Upper {
+        int count = 20; // super.count
+    }
+
+    class Lower extends Upper {
+        int count = 15; // this.count
+
+        void callNum() {
+            System.out.println("count = " + count);// 자기에게 가장 가까운 count를 선택.
+            System.out.println("this.count = " + this.count //현재 클래스의 count
+
+            );
+            System.out.println("super.count = " + super.count // 상위 클래스의 count
+            );
+        }
+    }
+
+// 출력값
+    count = 15
+    count = 15
+    count = 20
+
+```
+
+- super 키워드를 붙이지 않는다면, 자바 컴파일러가 해당 객체는 자신이 속한 인스턴스 객체의 멤버를 먼저 참조.
+
+```jshelllanguage
+
+    public class Test {
+        public static void main(String[] args) {
+            Student s = new Student();
+        }
+    }
+
+    class Human {
+        Human() {
+            System.out.println("휴먼 클래스 생성자");
+        }
+    }
+
+    class Student extends Human { // Human 클래스로부터 상속
+        Student() {
+            super(); // Human 클래스의 생성자 호출
+            System.out.println("학생 클래스 생성자");
+        }
+    }
+
+    // 출력값
+    휴먼 클래스 생성자
+    학생 클래스 생성자
+```
+- 생성자의 첫 줄에 this()나 super()를 선언해야 한다.
+- 없는 경우 생성자의 첫줄에 자동으로 super()를 삽입한다.
+
+### Object 클래스
+> Object 클래스는 자바의 클래스 상속계층도에서 최상위에 위치한 상위클래스이다.
+> 모든 클래스는 Object 클래스로부터 확장된다.
+> Object 클래스의 메서드는 따로 정으하지 않아도 사용가능하다.
+
+|메서드명|반환타입| 내용                            |
+|------|------|-------------------------------|
+|toString|String| 객체 정보를 문자열로 출력                |
+|equals|boolean| 등가 비교 연산{==}과 동일하게 스택 메모리값 비교 |
+|hashCode()|int|객체 위치정보 관련. Hashtable이나 Hashmap에서 동일 객체여부 판단.|
+|notify()|void|일시정지 중인 쓰레드 재동장|
+|wait()|void|현재 쓰레드 일시정지|
