@@ -395,6 +395,7 @@ class Constructor {
 - 상속을 사용하면 코드를 재사용하여 보다 적은 양의 코드로 새로운 클래스를 작성할 수 있어 `코드의 중복을 제거`할 수 있다.
 - 다형적 표현을 가능하게 한다.
 - 단일상속만 가능하다.
+- 상속이 연결 가능하다
 
 ```java
 class Person {
@@ -406,8 +407,6 @@ class Person {
     }
 
     ;
-
-
 }
 
 class Programmer extends Person { // Person 클래스로부터 상속. extends 키워드 사용 
@@ -455,7 +454,6 @@ public class HelloJava {
         p.age = 24;
         p.learn();
 
-
         System.out.println(p.name);
 
         //Programmer 객체 생성
@@ -465,7 +463,6 @@ public class HelloJava {
 
         pg.coding(); // Programmer의 개별 기능
         System.out.println(pg.name);
-
     }
 }
 
@@ -704,10 +701,12 @@ public class Main {
     휴먼 클래스 생성자
     학생 클래스 생성자
 ```
+
 - 생성자의 첫 줄에 this()나 super()를 선언해야 한다.
 - 없는 경우 생성자의 첫줄에 자동으로 super()를 삽입한다.
 
 ### Object 클래스
+
 > Object 클래스는 자바의 클래스 상속계층도에서 최상위에 위치한 상위클래스이다.
 > 모든 클래스는 Object 클래스로부터 확장된다.
 > Object 클래스의 메서드는 따로 정으하지 않아도 사용가능하다.
@@ -719,3 +718,488 @@ public class Main {
 |hashCode()|int|객체 위치정보 관련. Hashtable이나 Hashmap에서 동일 객체여부 판단.|
 |notify()|void|일시정지 중인 쓰레드 재동장|
 |wait()|void|현재 쓰레드 일시정지|
+
+---------------------
+
+## 캡슐화
+
+> 특정 객체 안에 관련된 솏ㅇ과 기능을 하나의 캡슐로 만들어 데이터를 외부로부터 보호하는 것
+
+- 데이터 보호
+- 내부적으로만 사용되는 데이터에 대한 불필요한 외부 노출을 방지
+- 데이터가 변경되더라도 다른 객체에 영향을 주지 않기에 독립성을 확보할 수 있음.
+
+### 패키지
+
+> 특정한 목절을 공유하는 클래스와 인터페이스의 묶음.
+> 클래스를 그룹 단위로 묶어 효과적으로 관리하기 위한 목적.
+
+- 패키지는 하나의 디렉토리이고, 하나의 패키지에 속한 클래스나 인터페이스 파일은 모두 해당 패키지에 속해있다.
+- 계층구조를 가지고 있고 `.`으로 구분한다.
+- 패키지가 있는 경우 소스 코드의 첫 줄에 반드시 `package 패키지명`이 표시돼야 하고. 없으면 이름없는 패키지에 속함.
+
+```jshelllanguage
+package practice.test
+
+    public class packageEx{
+
+}
+```
+
+- 클래스의 충돌을 방지해준다.
+
+### import
+
+> 다른 패키지 내의 클래스를 사용하기 위해 사용.
+
+- import문이 없으면 다른 패키지의 클래스를 사용하기 위해 매번 패키지명을 붙여 줘야함.
+
+```jshelllanguage
+public class packageEx {
+    public static void main(String[] args) {
+        pracicepack.test.Examplecalss example = new pracicepack.test.Examplecalss();
+    }
+}
+```
+
+- 입력방식
+    - `import 패키지명.클래스명;` 혹은 `import 패키지명.*;`
+    - `import.패키지명.*`으로 작성하면 해당 패키지의 모든 클래스를 패키지명 없이 사용 가능.
+
+```jshelllanguage
+package practicepack.test2;
+
+    improt practicepack.test.ExampleImp
+
+    public class packageEE{
+    public static void main(String[]args){
+    ExmapleImp a=new ExampleImp(); //패키지명이 안 붙음.
+}
+}
+```
+
+### 접근제어자
+
+> 클래스, 필드. 메서드, 생성자 등에 부가적인 의미를 부여하는 키워드
+> public, protected, default(생략가능), private
+
+- 접근 제어자는 한 번만 사용할 수 있다.
+
+| 접근 제어자    |클래스 내|패키지 내| 다른 패키지의 하위클래스(상속) |패키지 외|
+|-----------|-------|--------|-------------------|-------|
+| private  | o|x| x                 |x| 
+| default |  o|o| x                 |x|
+| protected |o|o| o                 |x|
+|public|o|o| o                 |o|
+|           |     |     |                   |     |
+
+```java
+package package1; // 패키지명 package1 
+
+//파일명: Parent.java
+class Test { // Test 클래스의 접근 제어자는 default
+    public static void main(String[] args) {
+        Parent p = new Parent();
+
+//        System.out.println(p.a); // 동일 클래스가 아니기 때문에 에러발생!
+        System.out.println(p.b);
+        System.out.println(p.c);
+        System.out.println(p.d);
+    }
+}
+
+public class Parent { // Parent 클래스의 접근 제어자는 public
+    private int a = 1; // a,b,c,d에 각각 private, default, protected, public 접근제어자 지정
+    int b = 2;
+    protected int c = 3;
+    public int d = 4;
+
+    public void printEach() { // 동일 클래스이기 때문에 에러발생하지 않음
+        System.out.println(a);
+        System.out.println(b);
+        System.out.println(c);
+        System.out.println(d);
+    }
+}
+
+// 출력값
+                2
+                3
+                4
+```
+
+```java
+package package2; // package2 
+
+//파일명 Test2.java
+
+import package1.Parent;
+
+class Child extends package1.Parent {  // package1으로부터 Parent 클래스를 상속
+    public void printEach() {
+        System.out.println(a); // 에러 발생!
+        System.out.println(b); // 에러
+
+        // 다른 패키지의 클래스를 확장하지 못하면 public이든 protected든 다 에러가 난다.
+        System.out.println(c); // 다른 패키지의 하위 클래스
+        System.out.println(d); // public
+    }
+}
+
+public class Test2 {
+    public static void main(String[] args) {
+        Parent p = new Parent();
+
+        System.out.println(p.a); // public을 제외한 모든 호출 에러!
+        System.out.println(p.b); // 에러
+        System.out.println(p.c); // 에러
+        System.out.println(p.d); // 
+    }
+}
+```
+
+- 접근 제어자는 내가 접근 가능을 말하는 것이 아니라 `내가 접근 받는 것을 관리하는 것이다.`
+
+### getter와 setter 메서드
+> private 접근제어자가 포함되어 있는 객체의 변수의 데이터 값을 추가하거나 수정하고 싶을때 사용.
+> 
+> setter 메서드(set-)는 외부에서 메서드에 접근하여 데어티 값을 변경 가능하게 해준다.
+> 
+> getter 메서드는(get-) setter로 설정한 변수 값을 읽어오는 데 사용한다.
+
+```java
+ public class GetterSetterTest {
+    public static void main(String[] args) {
+        Worker w = new Worker();
+        w.setName("김코딩"); // private 변수를 추가하거나 수정할때 사용
+        w.setAge(30);
+        w.setId(5);
+
+        String name = w.getName(); // 출력은 getter로 한다.
+        System.out.println("근로자의 이름은 " + name);
+        int age = w.getAge();
+        System.out.println("근로자의 나이는 " + age);
+        int id = w.getId();
+        System.out.println("근로자의 ID는 " + id);
+    }
+}
+
+class Worker {
+    private String name; // 변수의 은닉화. 외부로부터 접근 불가
+    private int age;
+    private int id;
+
+    public String getName() { // 멤버변수의 값 
+        return name;
+    }
+
+    public void setName(String name) { // 멤버변수의 값 변경
+        this.name = name;
+    }
+
+    public int getAge() {
+        return age;
+    }
+
+    public void setAge(int age) {
+        if(age < 1) return;
+        this.age = age;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+}
+```
+- 데이터를 효과적으로 보호하면서 의도하는 값으로 값을 변경할 수 있다.
+
+--------------------
+## 다형성
+> 한 타입의 참조변수를 통해 여러 타입의 객체를 참조할 수 있도록 만든 것.
+
+> 상위 클래스 타입의 참조변수를 통해서 하위 클래스의 객체를 참조할 수 있도록 허용한 것.
+
+```java
+class Friend {
+  public void friendInfo() {
+    System.out.println("나는 당신의 친구입니다.");
+  }
+}
+
+class BoyFriend extends Friend {
+
+  public void friendInfo() {
+    System.out.println("나는 당신의 남자친구입니다.");
+  }
+}
+
+class GirlFriend extends Friend {
+
+  public void friendInfo() {
+    System.out.println("나는 당신의 여자친구입니다.");
+  }
+}
+
+public class FriendTest {
+
+  public static void main(String[] args) {
+    Friend friend = new Friend(); // 객체 타입과 참조변수 타입의 일치
+    BoyFriend boyfriend = new BoyFriend();
+    Friend girlfriend = new GirlFriend(); // 객체 타입과 참조변수 타입의 불일치
+
+    friend.friendInfo();
+    boyfriend.friendInfo();
+    girlfriend.friendInfo();// 수행가능함.
+  }
+}
+```
+- 상위 클래스를 참조변수의 타입으로 지정하면 참조변수가 사용할 수 있는 멤버의 개수는 상위 클래스의 멤버의 수가 된다.
+```jshelllanguage
+public class FriendTest {
+
+  public static void main(String[] args) {
+    Friend friend = new Friend(); // 객체 타입과 참조변수 타입의 일치 -> 가능
+    BoyFriend boyfriend = new BoyFriend();
+    Friend girlfriend = new GirlFriend(); // 객체 타입과 참조변수 타입의 불일치 -> 가능
+    GirlFriend friend1 = new Friend(); // -> 하위클래스 타입으로 상위클래스 객체 참조 -> 불가능
+
+    friend.friendInfo();
+    boyfriend.friendInfo();
+    girlfriend.friendInfo();
+  }
+}
+```
+- 객체인 상위 클래스의 멤버의 수보다 참조 변수의 멤버 개수가 더 많기 때문에 하위클래스에서 상위클래스 
+객체 참조는 안 된다.
+
+### 참조변수의 타입변환
+> 사용할 수 있는 멤버의 개수를 조절하는 것을 의미한다.
+- 서로 상속관계에 있는 상위 클래스 - 하위 클래스 사이에만 타입변환이 가능하다.
+- 하위 클래스 타입에서 상위 클래스 타입으로의 타입 변환(업 캐스팅)은 형변환 연산자(괄호)를
+생략할 수 있다.
+- 상위 클래스에서 하위 클래스 타입으로 변환(다운캐스팅)은 형변환 연산자(괄호)를 반드시 명시해야 한다.
+
+```java
+public class VehicleTest {
+    public static void main(String[] args) {
+        Car car = new Car();
+        Vehicle vehicle = (Vehicle) car; // 상위 클래스 Vehicle 타입으로 변환(생략 가능)
+        Car car2 = (Car) vehicle; // 하위 클래스 Car타입으로 변환(생략 불가능)
+        MotorBike motorBike = (MotorBike) car; // 상속관계가 아니므로 타입 변환 불가 -> 에러발생
+    }
+}
+
+class Vehicle {
+    String model;
+    String color;
+    int wheels;
+
+    void startEngine() {
+        System.out.println("시동 걸기");
+    }
+
+    void accelerate() {
+        System.out.println("속도 올리기");
+    }
+
+    void brake() {
+        System.out.println("브레이크!");
+    }
+}
+
+class Car extends Vehicle {
+    void giveRide() {
+        System.out.println("다른 사람 태우기");
+    }
+}
+
+class MotorBike extends Vehicle {
+    void performance() {
+        System.out.println("묘기 부리기");
+    }
+}
+```
+- 상속관계에 있는 클래스 간에는 상호 타입변화이 자유롭게 수행될 수 있다.
+
+### instanceof 연산자
+> 참조변수의 타입변환, 즉 캐스팅이 가능한 지 여부를 boolean, 타입으로 확인가능.
+- `참조변수(인스턴스) instanceof 클래스이름`
+
+### 예시 코드
+```java
+package package2;
+
+public class PolymorphismEx {
+  public static void main(String[] args) {
+    Customer customer = new Customer();
+    customer.buyCoffee(new Americano()); //Americano는 Coffee를 상속 받는다
+    // new Americano() instanceof Coffee
+    customer.buyCoffee(new CaffeLatte());
+
+    System.out.println("현재 잔액은 " + customer.money + "원 입니다.");
+  }
+}
+
+class Coffee {
+  int price;
+
+  public Coffee(int price) {
+    this.price = price;
+  }
+}
+
+class Americano extends Coffee {
+  public Americano() {
+    super(4000); // 상위 클래스 Coffee의 생성자를 호출
+  }
+
+  public String toString() {return "아메리카노";}; //Object클래스 toString()메서드 오버라이딩
+};
+
+class CaffeLatte extends Coffee {
+  public CaffeLatte() {
+    super(5000);
+  }
+
+  public String toString() {return "카페라떼";} // 객체를 출력하려 할때 정보들을 문자열로 출력하는 메소드오버라이딩
+};
+
+class Customer {
+  int money = 50000;
+
+  void buyCoffee(Coffee coffee) {//Coffee타입을 받는다.
+    if (money < coffee.price) { // 물건 가격보다 돈이 없는 경우
+      System.out.println("잔액이 부족합니다.");
+      return;
+    }
+    money = money - coffee.price; // 가진 돈 - 커피 가격
+    System.out.println(coffee + "를 구입했습니다.");
+  }
+}
+```
+
+## 추상화
+> 기존 클래스들의 공통적ㅇ니 요소들을 뽑아서 상위 클래스를 만들어 내는것
+
+> 상향식, 하향식은 상과이 없음. 
+
+### abstract
+> abstract라는 키워드가 클래스나 메서드 앞에 사용되는데, 메서드 앞에 붙은 경우 추상메서드,
+> 클래스 앞에 붙은경우 추상 클래스라고 불림.
+- 추상 메서드 : 메서드의 시그니처만 있고 바디가 없는 메서드를 의미.
+- 추상클래스 : 클래스 안에 추상 메서드가 최소 하나 이상 포함돼 있는 경우.
+```jshelllanguage
+abstract class AbstractExample{ // 추상 메서드가 최소 하나 이상 포함돼 있는 추상 클래스
+    abstract void start(); // 메서드 바디가 없는 추상메서드
+}
+```
+### 특징
+  - 어떤 클래스에 추상 메서드가 포함되어 있으면 해당 클래스는 자동으로 추상 클래스가 된다.
+  - 추상 클래스로 인스턴스를 만들 수 없다.
+  - 추상 클래스를 상속할 때 추상 클래스 안의 메소드를 구체화시키지 않으면 생성되지 않는다.
+  - 추상클래스를 상속하는 하위클래스는 인스턴스를 만들 수 있다.
+  - 클래스 앞에 abstract 키워드를 붙이면 메소드도 abstract를 붙여야한다.(정의하지 않으면)
+  - 메소드를 정의하면 추상 클래스 앞에 abstract를 붙이지 않아도 생성된다.
+  - 메소드가 없어도 추상 클래스는 생성가능하지만 의미가 없다.
+  - 추상 클래스도 멤버변수를 가질 수 있다.
+  - 추상 클래스는 하위 클래스로 추상클래스를 가질 수 있다.(추상 메소드 오버라이딩 없이)
+  - 사용 이유
+    - 상속 관계에 있어서 새로운 클래스를 작성하는데 유용하다.
+    - 추상화를 구현하는데 적합하다. 즉 상속계층도의 상층부에 위치할 수혹 추상화의 정도가 높고 아래로
+      내려갈수록 구체화된다.
+```java
+abstract class Animal {
+  public String kind; // 추상 클래스안에서 필드를 가짐
+  public abstract void sound();
+}
+
+class Dog extends Animal { // Animal 클래스로부터 상속
+  public Dog() {
+    this.kind = "포유류";
+  }
+
+  public void sound() { // 메서드 오버라이딩 -> 구현부 완성(이거 안하면 안만들어짐)
+    System.out.println("멍멍");
+  }
+}
+
+class Cat extends Animal { // Animal 클래스로부터 상속
+  public Cat() {
+    this.kind = "포유류";
+  }
+
+  public void sound() { // 메서드 오버라이딩 -> 구현부 완성
+    System.out.println("야옹");
+  }
+}
+
+class DogExample {
+  public static void main(String[] args) throws Exception {
+    Animal dog = new Dog(); //상속받은 거라 이렇게 만들어도 상관 없음.
+    dog.sound();
+
+    Cat cat = new Cat();
+    cat.sound();
+  }
+}
+
+```
+### fianl 키워드
+> 변경이 불가능하거나 확장되지 않는 성질.
+
+|위치|의미|
+|-------|-----------------------------------|
+| 클래스 | 변경 또는 확장 불가능한 클래스, 상속 불가|
+ 메소드 | 오버라이딩 불가|
+변수 | 값 변경이 불가한 상수|
+```jshelllanguage
+
+  final class FinalEx { // 확장/상속 불가능한 클래스
+  final int a = 1; // 변경되지 않는 상수
+
+  final void getNum() { // 오버라이딩 불가한 메서드
+    final int Var = a; // 상수
+    return a;
+  }
+}
+
+```
+--------------------
+## 인터페이스
+> 클래스들을 연결시켜주는 접속장치
+- 추상 메서드와 상수만을 멤버로 가질수 있다.
+### 인터페이스 기본 구조
+> 내부의 모든 필드가 public static final로 정의가되고, 모든 메서드가 public abstract로 정의된다.
+
+```jshelllanguage
+public interface InterfaceEx {
+  public static final int rock =  1; // 인터페이스 인스턴스 변수 정의
+  final int scissors = 2; // public static 생략
+  static int paper = 3; // public & final 생략
+
+  public abstract String getPlayingNum();
+  void call(); //public abstract 생략 
+}
+```
+- 생략된 부분은 자동으로 추가해 준다.
+
+### 인터페이스 구현
+> 해당 인터페이스에 정의된 모든 추상메서드를 구현해야 한다. 즉, 메서드 바디를 완성시켜야 한다.
+```jshelllanguage
+class 클래스명 implements 인터페이스명 {
+		... // 인터페이스에 정의된 모든 추상메서드 구현
+}
+```
+### 특징
+- 인터페이스를 써서 새로운 객체를 만들 수 있다.
+- 인터페이스가 인터페이스를 상속 가능.
+- 모든 상위의 인터페이스의 메소드를 포함해야 새로운 클래스를 만들 수 있음.
+- 모든 메소드를 포함하고 싶지 않다면 abstract를 써야 함.
+- abstract 클래스를 상속하는 클래스를 만들려면 상위 인터페이스의 모든 메소드를 적어야 함.
+- default를 써서 추상메소드가 아닌 메소드를 인터페이스에 넣을 수 있음.
+- default 메소드는 오버라이드도 가능함.
+- 컴파일 에러를 방지할 수 있음.
