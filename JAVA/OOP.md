@@ -1189,3 +1189,5 @@ class 클래스명 implements 인터페이스명 {
 - default를 써서 추상메소드가 아닌 메소드를 인터페이스에 넣을 수 있음.
 - default 메소드는 오버라이드도 가능함.
 - 컴파일 에러를 방지할 수 있음.
+
+> [인터페이스와 추상화의 차이점](https://velog.io/@gillog/Java-Interface-vs-Abstract-Class-%EC%A0%95%EB%A6%AC)
