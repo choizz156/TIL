@@ -1191,3 +1191,4 @@ class 클래스명 implements 인터페이스명 {
 - 컴파일 에러를 방지할 수 있음.
 
 > [인터페이스와 추상화의 차이점](https://velog.io/@gillog/Java-Interface-vs-Abstract-Class-%EC%A0%95%EB%A6%AC)
+> [interface vs abstract](https://github.com/in28minutes/java-tutorial-for-beginners#step-20--abstract-class-and-interface--a-comparison)
