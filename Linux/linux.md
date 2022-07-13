@@ -266,3 +266,27 @@ shutdown -h +3 : 3분후에 꺼진다.
   - which [실행파일이름] : PATH에 설정된 디렉터리만 검색
   - whereis [실행파일이름] : 실행 파일, 소스, man페이지 파일까지 검색
   - loacte [파일이름] : 파일 목록 데이터베이스에서 검색
+
+--------------
+## 시스템 설정
+- 네트워크 설정 : `nmtui`
+- 방화벽 설정 : `firewall-config`
+- 서비스 설정 : `ntsysv`
+### cron과 at
+- cron
+  - 주기적으로 반복되는 일을  자동적으로 실행될 수 있도록 설정
+  - 관련된 데몬(서비스)은 crond, 관련 파일은 /etc/crontab
+    - /# 01**** root run-parts /etc/cron.hourly : 매 시간 1분에 /etc/cron.hourly. 디렉터리 안에 있는 명려을 자동으로 실행
+    - /# 01**** root run-parts /etc/cron.monthly
+    - /# 01**** root run-parts /etc/cron.daily
+    - /# 01**** root run-parts /etc/cron.weekly
+    
+- at
+  - cron은 주기적으로 반복되는 작업을 예약하는 것이지만 at은 일회성 작업을 예약
+    - 예약 : /# at <시간>
+      - /# at # 3:00 am tomorrow -> 내일 새벽 3시
+      - /# at now + 1hours -> 한시간 후 
+    - at> 프롬프트에 예약 명령어 입력 후 엔터키
+    - 완료되면 ctrl d 
+  - 확인 : at -l
+  - 취소 : atrm <작업번호>
