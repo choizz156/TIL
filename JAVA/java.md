@@ -276,7 +276,7 @@ int a=128;
 ### String 타입의 변수 선언과 할당
 
 ```
-String name 1="rudy";
+        String name 1="rudy";
         String name 2=new String("rudy");
 ```
 
@@ -287,7 +287,7 @@ String name 1="rudy";
 > String 변수명 ="문자열";을 이용하여 할당.
 
 ```
-String name1="jason";
+        String name1="jason";
         String name2="jason";
 
         String name3=new String("jason");
