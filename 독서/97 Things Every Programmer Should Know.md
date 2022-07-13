@@ -19,6 +19,7 @@
 - [Continuous Learning](#continuous-learning)
 - [Convenience Is Not an -illty](#convenience-is-not-an--illty)
 - [Do Lots of Deliberate Practice](#do-lots-of-deliberate-practice)
+- [Don't Be Afraid to Break Things](#dont't-be-afraid-to-break-things)
 ## Act with Prudence
 
 ## Apply functional Programming Principles
@@ -126,3 +127,9 @@ Eating sweets is bad for you.
 - Deliberate practice means practicing something you are not good at.
 - Challenging yourself with a task that is just beyond your current ability,trying it, analyzing your performance
 while and after doing it and correcting any mistakes.
+
+## Don't Be Afraid to Break Things
+- Investing the time to refactor will pay for itself several times over the lifecycle of your project.
+- Slowly transition the old structure into the new one, testing along the way.
+- Be the surgeon who isn't afraid to cut out the sick parts to make room for healing.
+- Never stop caring about the general health of the code.
