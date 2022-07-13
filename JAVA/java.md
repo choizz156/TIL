@@ -298,6 +298,9 @@ int a=128;
   즉, name1과 name2가 저장하게 되는 문자열의 주소값이 같다.
 - name3과 name4는 String 클래스의 인스턴스를 생성하게 되면 문자열으 내용이 같아도, 별개의 인스턴스가 따로 생성된다.
   즉, name3과 name4는 서로 다른 인스턴스의 주소값을 저장한다.
+- `==` : 주소값을 비교 [name1 == name2 -> true || name3 == name4 -> false]
+- `equals` : Object 메소드에서 가져와서 오버라이드함. 
+             내용을 비교. [name1.equals(name3) -> true || name3.equals(name4) -> true]
 
 ### String 클래스의 메서드
 
