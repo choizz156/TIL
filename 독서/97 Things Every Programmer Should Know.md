@@ -19,7 +19,9 @@
 - [Continuous Learning](#continuous-learning)
 - [Convenience Is Not an -illty](#convenience-is-not-an--illty)
 - [Do Lots of Deliberate Practice](#do-lots-of-deliberate-practice)
-- [Don't Be Afraid to Break Things](#dont't-be-afraid-to-break-things)
+- [Don't Be Afraid to Break Things](#dont-be-afraid-to-break-things)
+- [Don't Be Cute with Your Test Data](#dont-be-cute-with-your-test-data)
+- [Don't Ignore that Error](#dont-ignore-that-error)
 ## Act with Prudence
 
 ## Apply functional Programming Principles
@@ -133,3 +135,13 @@ while and after doing it and correcting any mistakes.
 - Slowly transition the old structure into the new one, testing along the way.
 - Be the surgeon who isn't afraid to cut out the sick parts to make room for healing.
 - Never stop caring about the general health of the code.
+
+## Don't Be Cute with Your Test Data
+- When writing any text in your code - whether comments, logging, dialogs, or test data- 
+always ask yourself how it will look if it becomes public.
+
+## Don't Ignore that Error
+- No matter gow unlikely you think an error is in your code, you should always check
+for it, and always handle it.
+- Just as you should check all potential errors in your code, you need to expose
+all potentially erroneous conditions in your interfaces. Don't hide them, pretending that your services will always work.
