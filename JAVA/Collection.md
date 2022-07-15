@@ -1,4 +1,3 @@
-
 # 컬렉션 프레임워크(Collection Framework)
 
 > - 자료 구조를 바탕으로 `객체`들을 효율적으로 추가,삭제,검색할 수 있도록 컬렉션을 만든 것.
@@ -169,89 +168,8 @@
     valueAL
     =>[102,103,104]
 ```
+
 ----------------------
-## 정렬
-### Comparable 정렬
-> - 기본 정렬기준을 구현하는데 사용.
-><br/>
-> - 요소들을 비교하려면 Comparable 인터페이스를 구현해야 하는데 wrapper 클래스는 이미 구현하고 있음.
-<br/>
-> - 왼쪽이 크면 양수, 같으면 0, 오른쪽이 크면 음수.
-```jshelllanguage
-jshell > List < Integer > numbers = List.of(123, 12, 3, 45)
-    numbers ==>[123,12,3,45]
-
-    jshell>List<Integer>numbersAL=new ArrayList<>(numbers);
-    numbersAL==>[123,12,3,45]
-
-    jshell>numbersAL.sort(); // 본래 sort()를 쓰려면 Compratoer가 있어야 한다. 
-    |Error:
-    |method sort in interface java.util.List<E>cannot be applied to given types;
-    |required:java.util.Comparator<?super java.lang.Integer>
-    |found:no arguments
-    |reason:actual and formal argument lists differ in length
-    |numbersAL.sort();
-    |^------------^
-
-    jshell>Collections.sort(numbersAL) //Collections클래스에서 sort()를 쓰면 바로 정렬된다.
-                                       // Integer가 Comparable을 구현하고 있기 때문에 대상을 안써도 됨.
-
-    jshell>numbersAL
-    numbersAL==>[3,12,45,123]
-
-```
-
-```java
-public class Student {...} // Comparable 인터페이스를 구현하지 않음.
-
-public class StudentRunner {
-    public static void main(String[] args) {
-        List<Student> stundents = List.of(new Student(1,"a"), new Student(100,"Adam"),new Student(2,"c"));
-        ArrayList<Student> studentAL = new ArrayList<>((stundents));
-        System.out.println(studentAL);
-        Collections.sort(studentAL);// 에러가 난다.
-        System.out.println(studentAL);
-    }
-    public class Student implements Comparable<Student>{//Student는 비교할 객체.
-        ...
-        @Override
-        public int compareTo(Student that) { // 주어진 객체를 자기 자신과 비교.
-            return Integer.compare(that.id,this.id); // that부터 쓰면 내림차순.
-            return Integer.compare(this.id,that.id); // this부터 쓰면 오름차순.       
-        }}
-}
-    public class StudentRunner {
-        public static void main(String[] args) {
-            List<Student> stundents = List.of(new Student(1,"a"), new Student(100,"Adam"),new Student(2,"c"));
-            ArrayList<Student> studentAL = new ArrayList<>((stundents));
-            System.out.println(studentAL);
-            Collections.sort(studentAL);// 출력됨.
-            System.out.println(studentAL);
-        }
-}
-  ```
-------------
-### Comparator 정렬
-> 기본 정렬기준 외에 다른 기준으로 정렬하고자할 때 사용.
-```java
-public class Dsstudent implements Comparator<Student> {
-
-    @Override
-    public int compare(Student s1, Student s2) {// 두 객체를 비교
-        return Integer.compare(s2.getId(), s1.getId()); 
-    }
-
-    public int compare(Student s1, Student s2) { 
-        return s2.getName().compareTo(s1.getName());// ID 뿐만아니라 이름이나 다른것도 상황에 맞춰 정렬할 수 있다.
-    }                                               //compare가 아니라 compareTO를 쓴다.
-                                                    // 비교대상의 위치를 바꿔서 내림차순할 수 있다. (왼쪽부터 오른쪽 순 = 오름차순)
-
-}
-
-
-```
-
-------------
 
 ## LinkedList
 
@@ -408,3 +326,438 @@ List < String > list = List.of("a", "b", "c");
   ```
 
 ----------------
+
+## 정렬
+
+### Comparable 정렬
+
+> - 기본 정렬기준을 구현하는데 사용.
+    > <br/>
+> - 요소들을 비교하려면 Comparable 인터페이스를 구현해야 하는데 wrapper 클래스는 이미 구현하고 있음.
+    <br/>
+> - 왼쪽이 크면 양수, 같으면 0, 오른쪽이 크면 음수.
+
+```jshelllanguage
+jshell > List < Integer > numbers = List.of(123, 12, 3, 45)
+    numbers ==>[123,12,3,45]
+
+    jshell>List<Integer>numbersAL=new ArrayList<>(numbers);
+    numbersAL==>[123,12,3,45]
+
+    jshell>numbersAL.sort(); // 본래 sort()를 쓰려면 Compratoer가 있어야 한다. 
+    |Error:
+    |method sort in interface java.util.List<E>cannot be applied to given types;
+    |required:java.util.Comparator<?super java.lang.Integer>
+    |found:no arguments
+    |reason:actual and formal argument lists differ in length
+    |numbersAL.sort();
+    |^------------^
+
+    jshell>Collections.sort(numbersAL) //Collections클래스에서 sort()를 쓰면 바로 정렬된다.
+    // Integer가 Comparable을 구현하고 있기 때문에 대상을 안써도 됨.
+
+    jshell>numbersAL
+    numbersAL==>[3,12,45,123]
+
+```
+
+```java
+public class Student {...
+} // Comparable 인터페이스를 구현하지 않음.
+
+public class StudentRunner {
+    public static void main(String[] args) {
+        List<Student> stundents = List.of(new Student(1, "a"), new Student(100, "Adam"), new Student(2, "c"));
+        ArrayList<Student> studentAL = new ArrayList<>((stundents));
+        System.out.println(studentAL);
+        Collections.sort(studentAL);// 에러가 난다.
+        System.out.println(studentAL);
+    }
+
+    public class Student implements Comparable<Student> {//Student는 비교할 객체.
+        ...
+
+        @Override
+        public int compareTo(Student that) { // 주어진 객체를 자기 자신과 비교.
+            return Integer.compare(that.id, this.id); // that부터 쓰면 내림차순.
+            return Integer.compare(this.id, that.id); // this부터 쓰면 오름차순.       
+        }
+    }
+}
+
+public class StudentRunner {
+    public static void main(String[] args) {
+        List<Student> stundents = List.of(new Student(1, "a"), new Student(100, "Adam"), new Student(2, "c"));
+        ArrayList<Student> studentAL = new ArrayList<>((stundents));
+        System.out.println(studentAL);
+        Collections.sort(studentAL);// 출력됨.
+        System.out.println(studentAL);
+    }
+}
+  ```
+
+------------
+
+### Comparator 정렬
+
+> 기본 정렬기준 외에 다른 기준으로 정렬하고자할 때 사용.
+
+```java
+public class Dsstudent implements Comparator<Student> {
+
+    @Override
+    public int compare(Student s1, Student s2) {// 두 객체를 비교
+        return Integer.compare(s2.getId(), s1.getId());
+    }
+
+    public int compare(Student s1, Student s2) {
+        return s2.getName().compareTo(s1.getName());// ID 뿐만아니라 이름이나 다른것도 상황에 맞춰 정렬할 수 있다.
+    }                                               //compare가 아니라 compareTO를 쓴다.
+    // 비교대상의 위치를 바꿔서 내림차순할 수 있다. (왼쪽부터 오른쪽 순 = 오름차순)
+
+}
+
+
+```
+
+------------
+
+## SET<E>
+
+> Set 안에서는 중복이 허용되지 않고, 순서가 정해져 있지 않다.
+
+```jshelllanguage
+$ jshell
+    |Welcome to JShell--Version17.0.2
+    |For an introduction type:/help intro
+
+    jshell>Set<String>set=Set.of("a","b","v")
+    set==>[a,b,v] // set객체를 만들었다.
+
+    jshell>set.add("aaa") // of를 써서 불변이다.
+    |Exception java.lang.UnsupportedOperationException
+    |at ImmutableCollections.uoe(ImmutableCollections.java:142)
+    |at ImmutableCollections$AbstractImmutableCollection.add(ImmutableCollections.java:147)
+    |at(#2:1)
+
+    jshell>Set<String>hashSet=new HashSet<>(set); // 변할 수 있게 hashSet을 만든다.
+    hashSet==>[a,b,v]
+
+    jshell>hashSet.add("a") //중복되는 객체는 추가하지 못한다.
+    $6==>false
+
+    jshell>hashSet.add("c") // 중복되지 않는 것은 추가가능하다.
+    $7==>true
+
+    jshell>hashSet
+    hashSet==>[a,b,c,v]
+
+    jshell>hashSet.add(1,"c") //위치는 정해지지 않는다.
+    |Error:
+    |method add in interface java.util.Set<E>cannot be applied to given types;
+    |required:java.lang.String
+    |found:int,java.lang.String
+    |reason:actual and formal argument lists differ in length
+    |hashSet.add(1,"c")
+    |^---------^
+
+```
+
+### HashSet
+
+> 정렬 순서와 삽입 순서에 상관없이 저장한다.
+
+```jshelllanguage
+jshell > Set < Integer > numbers = new HashSet<>();
+    numbers ==>[]
+    jshell>numbers.add(765432);
+    $1==>true
+    jshell>numbers.add(76543);
+    $2==>true
+    jshell>numbers.add(7654);
+    $3==>true
+    jshell>numbers.add(765);
+    $4==>true
+    jshell>numbers.add(76);
+    $5==>true
+    jshell>numbers
+    numbers==>[765432,7654,76,765,76543] // 랜덤으로 저장
+```
+
+### LinkedHashSet
+
+> 삽입순서만 상관있다.
+
+```jshelllanguage
+Set < Integer > numbers = new LinkedHashSet<>();
+    numbers ==>[]
+    jshell>numbers.add(765432);
+    $1==>true
+    jshell>numbers.add(76543);
+    $2==>true
+    jshell>numbers.add(7654);
+    $3==>true
+    jshell>numbers.add(765);
+    $4==>true
+    jshell>numbers.add(76);
+    $5==>true
+    jshell>numbers
+    numbers==>[765432,76543,7654,765,76] //삽입 순서대로 저장
+    jshell>numbers.add(7654321);
+    $5==>true
+    jshell>numbers
+    numbers==>[765432,76543,7654,765,**7654321**]
+```
+
+### TreeSet
+
+> 정렬순서만 상관있다.
+
+```jshelllanguage
+jshell > Set < Integer > numbers = new TreeSet<>();
+    numbers ==>[]
+    jshell>numbers.add(765432);
+    $1==>true
+    jshell>numbers.add(76543);
+    $2==>true
+    jshell>numbers.add(7654);
+    $3==>true
+    jshell>numbers.add(765);
+    $4==>true
+    jshell>numbers.add(76);
+    $5==>true
+    jshell>numbers
+    numbers==>[76,765,7654,76543,765432] // 삽입 순서는 상관 없고 들어오는 데로 정렬시킨다.
+    jshell>numbers.add(7);//마지막에 7을 넣음
+    $5==>true
+    jshell>numbers
+    numbers==>[**7**,76,765,7654,76543,765432] // 정렬돼서 맨 앞에 추가됨.
+```
+
+-------------------------
+
+## Queue<E>
+
+> 프로세싱 순서대로 정렬됨.
+
+### prioriyQueue
+
+> 기본적으로 순서대로 정렬되지만 임의로 기준을 정할 수 있다.
+
+- 기본값
+
+```jshelllanguage
+jshell > Queue < String > queue = new PriorityQueue<>();
+    queue ==>[] // 우선순위 큐 생성
+
+    jshell>queue.poll() // 맨 앞부터 하나씩 뽑음
+    $2==>null
+
+    jshell>queue.offer("a")//큐에 값을 넣는다.
+    $3==>true
+
+    jshell>queue.addAll(List.of("bb","cccc","dddd") //한 번에 넣을 수 있다.
+    ...>)
+    $4==>true
+
+    jshell>queue
+    queue==>[a,bb,ccc,dddd] // 기본적으로 오름차순으로 정렬된다.
+
+    jshell>queue.poll()// 맨 앞부터 하나씩 뽑는다.
+    $6==>"a"
+
+    jshell>queue
+    queue==>[bb,ccc,dddd]
+
+    jshell>queue.poll()
+    $8==>"bb"
+
+    jshell>queue
+    queue==>[ccc,dddd]
+
+    jshell>queue.poll()
+    $10==>"ccc"
+
+    jshell>queue
+    queue==>[dddd]
+
+    jshell>queue.poll()
+    $12==>"dddd"
+
+    jshell>queue //앞에서 부터 뽑으면 결국 큐에는 아무것도 남지 않는다.
+    queue==>[]
+
+```
+
+- 임의로 정렬
+
+```java
+public class Queuea {
+    public static void main(String[] args) {
+        Queue<String> queue = new PriorityQueue<String>(new Length());
+        queue.addAll(List.of("a", "bb", "ccc"));
+        System.out.println(queue.poll());//ccc
+        System.out.println(queue.poll());//bb
+        System.out.println(queue.poll());//a
+        System.out.println(queue.poll());//null
+
+    }
+}
+
+class Length implements Comparator<String> {//Comparator를 이용해서 정렬 기준을 바꾼다.
+
+    @Override
+    public int compare(String left, String right) {
+        return Integer.compare(right.length(), left.length());//내림차순
+    }
+}
+```
+
+-------------------
+
+## Map<K,V>
+
+> 키와 값(a,3)이 쌍으로 들어가는 인터페이스, 키를 사용하여 그에 대응하는 값을 구할 수 있다.
+
+- Collection 인터페이스를 구현하지 않아서 Collection 인터페이스에 있는 메서드를 사용할 수 없다.
+- 함수의 정의역 치역과 비슷하다.
+
+### HashMap
+
+- 순서와 정렬은 신경쓰지 않음.
+- key의 hashCode() 값은 해싱함수에서 사용.
+- key와 null값을 함께 저장가능.
+
+```jshelllanguage
+
+    jshell > HashMap < String,Integer>hashMap=new HashMap<>();
+    hashMap==>{}
+    jshell>hashMap.put("Z",5);
+    $1==>null
+    jshell>hashMap.put("A",15);
+    $2==>null
+    jshell>hashMap.put("F",25);
+    $3==>null
+    jshell>hashMap.put("L",250);
+    $4==>null
+    jshell>hashMap
+    hashMap==>{A=15,F=25,Z=5,L=250} //순서,정렬 신경 안씀.
+```
+
+### HashTable
+
+- 모든 메서드가 동기화 돼있어서 thread-safe이지만 동시성이 없음
+- 순서와 정렬은 신경쓰지 않음
+- key의 hashCode() 값은 해싱함수에서 사용.
+- null값을 허용하지 않음.
+
+### LinkedHashMap
+
+- 삽입된 순서대로 정렬됨.
+- iteration이 빠름.
+- 삽입과 삭제가 느림.
+
+```jshelllanguage
+jshell > LinkedHashMap < String,Integer>linkedHashMap=new LinkedHashMap<>();
+    linkedHashMap==>{}
+    jshell>linkedHashMap.put("Z",5);
+    $5==>null
+    jshell>linkedHashMap.put("A",15);
+    $6==>null
+    jshell>linkedHashMap.put("F",25);
+    $7==>null
+    jshell>linkedHashMap.put("L",250);
+    $8==>null
+    jshell>linkedHashMap
+    hashMap==>{Z=5,A=15,F=25,L=250} // 삽입된 순서대로 정렬
+
+
+```
+
+### TreeMap
+
+- 삽입 순서에 상관없이 정렬 순서가 유지됨(오름차순).
+- NavigableMap 인터페이스를 추가로 사용 가능함.
+
+```jshelllanguage
+jshell > TreeMap < String,Integer>treeMap=new TreeMap<>();
+    treeMap==>{}
+    jshell>treeMap.put("Z",5);
+    $9==>null
+    jshell>treeMap.put("A",15);
+    $10==>null
+    jshell>treeMap.put("F",25);
+    $11==>null
+    jshell>treeMap.put("L",250);
+    $12==>null
+    jshell>treeMap
+    treeMap==>{A=15,F=25,L=250,Z=5} // key값을 오름차순 함. 들어오는 순서는 상관없음.
+
+
+```
+
+### 메서드
+
+```jshelllanguage
+jshell > Map < String,Integer>map=Map.of("A",3,"B",5,"Z",10);
+    map==>{Z=10,A=3,B=5}
+
+    // key값을 넣었을때 value값 추출
+    jshell>map.get("Z");
+    $1==>10
+    jshell>map.get("A");
+    $2==>3
+
+// key값이 map안에 없으면 null을 추출
+    jshell>map.get("C");
+    $3==>null
+
+// 맵 크기	
+    jshell>map.size();
+    $4==>3
+// 맵이 비었는지
+    jshell>map.isEmpty();
+    $5==>false
+
+// 해당 키값이 맵안에 있는지
+    jshell>map.containsKey("A");
+    $6==>true
+    jshell>map.containsKey("F");
+    $7==>false
+
+// 해당 value가 맵안에 있는지
+    jshell>map.containsValue(3);
+    $8==>true
+    jshell>map.containsValue(4);
+    $9==>false
+
+// key값만 추출
+    jshell>map.keySet();
+    $10==>[Z,A,B]
+
+// value값만 추출
+    jshell>map.values();
+    $11==>[10,3,5]
+
+    jshell>Map<String,Integer>map=Map.of("A",3,"B",5,"Z",10);
+    map==>{Z=10,A=3,B=5}
+
+    // HashMap으로 가변성있게 만든다.
+    jshell>Map<String,Integer>hashMap=new HashMap<>(map);
+    hashMap==>{A=3,Z=10,B=5}
+
+    // 맵에 F=5를 추가하고 null 값을 리턴한다.
+    jshell>hashMap.put("F",5);
+    $1==>null
+    jshell>hashMap
+    hashMap==>{A=3,Z=10,B=5,F=5}
+
+    // z의 value를 11로 바꾸고 이전 값(10)을 추출한다.
+    jshell>hashMap.put("Z",11);
+    $2==>10
+    jshell>hashMap
+    hashMap==>{A=3,Z=11,B=5,F=5}
+
+
+
+```
