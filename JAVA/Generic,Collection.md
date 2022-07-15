@@ -282,6 +282,7 @@ class Animal {
 
     list==>[b,c]
 ```
+
 ### ArrayList 원소 변경 메서드
 
 ```jshelllanguage
@@ -325,34 +326,107 @@ class Animal {
 ```
 
 - `indexOf()`는 오버로딩이 되지 않아 `유일한 버젼`이지만 `remove()`는 오버로딩이 되어서 `2가지 버젼`이 있다.
-  - `remove(int index)` : 정수형이 들어가면 그것을 인덱스로 인식하고 그 인덱스의 값을 제거한다. 
-  - `remove(Object 0)` : 객체가 들어가면 그 객체 자체를 제거한다.
+    - `remove(int index)` : 정수형이 들어가면 그것을 인덱스로 인식하고 그 인덱스의 값을 제거한다.
+    - `remove(Object 0)` : 객체가 들어가면 그 객체 자체를 제거한다.
+
 ```jshelllanguage
 
 
-  List<Integer> values = List.of(101,102,103,104)
-    values ==> [101, 102, 103, 104]
-    List<Integer> valueAL = new ArrayList<>(values);
+    List < Integer > values = List.of(101, 102, 103, 104)
+    values ==>[101,102,103,104]
+    List<Integer>valueAL=new ArrayList<>(values);
     valueAL.indexof(101)
-    => 0
+    =>0
     valueAL.remove(101) //정수 기본형이 들어갔기 때문에 101번째 인덱스를 제거한다.
-    => error //outofbound에러가 난다.
+    =>error //outofbound에러가 난다.
     valueAL.remove(Integer.valueOf(101)) // 기본형을 wrapper클래스로 변환했기 때문에 101을 제거한다.
-    => true
+    =>true
     valueAL
     =>[102,103,104]
 ```
-### ArrayList 정렬
-> 정수와 문자열 클래스들은 이미 Comparable 인터페이스를 구현하고 있다. 따라서 
+----------------------
+## 정렬
+### Comparable 정렬
+> - 기본 정렬기준을 구현하는데 사용.
+><br/>
+> - 요소들을 비교하려면 Comparable 인터페이스를 구현해야 하는데 wrapper 클래스는 이미 구현하고 있음.
+<br/>
+> - 왼쪽이 크면 양수, 같으면 0, 오른쪽이 크면 음수.
+```jshelllanguage
+jshell > List < Integer > numbers = List.of(123, 12, 3, 45)
+    numbers ==>[123,12,3,45]
+
+    jshell>List<Integer>numbersAL=new ArrayList<>(numbers);
+    numbersAL==>[123,12,3,45]
+
+    jshell>numbersAL.sort(); // 본래 sort()를 쓰려면 Compratoer가 있어야 한다. 
+    |Error:
+    |method sort in interface java.util.List<E>cannot be applied to given types;
+    |required:java.util.Comparator<?super java.lang.Integer>
+    |found:no arguments
+    |reason:actual and formal argument lists differ in length
+    |numbersAL.sort();
+    |^------------^
+
+    jshell>Collections.sort(numbersAL) //Collections클래스에서 sort()를 쓰면 바로 정렬된다.
+                                       // Integer가 Comparable을 구현하고 있기 때문에 대상을 안써도 됨.
+
+    jshell>numbersAL
+    numbersAL==>[3,12,45,123]
+
+```
+
+```java
+public class Student {...} // Comparable 인터페이스를 구현하지 않음.
+
+public class StudentRunner {
+    public static void main(String[] args) {
+        List<Student> stundents = List.of(new Student(1,"a"), new Student(100,"Adam"),new Student(2,"c"));
+        ArrayList<Student> studentAL = new ArrayList<>((stundents));
+        System.out.println(studentAL);
+        Collections.sort(studentAL);// 에러가 난다.
+        System.out.println(studentAL);
+    }
+    public class Student implements Comparable<Student>{//Student는 비교할 객체.
+        ...
+        @Override
+        public int compareTo(Student that) { // 주어진 객체를 자기 자신과 비교.
+            return Integer.compare(that.id,this.id); // that부터 쓰면 내림차순.
+            return Integer.compare(this.id,that.id); // this부터 쓰면 오름차순.       
+        }}
+}
+    public class StudentRunner {
+        public static void main(String[] args) {
+            List<Student> stundents = List.of(new Student(1,"a"), new Student(100,"Adam"),new Student(2,"c"));
+            ArrayList<Student> studentAL = new ArrayList<>((stundents));
+            System.out.println(studentAL);
+            Collections.sort(studentAL);// 출력됨.
+            System.out.println(studentAL);
+        }
+}
+  ```
+------------
+### Comparator 정렬
+> 기본 정렬기준 외에 다른 기준으로 정렬하고자할 때 사용.
+```java
+public class Dsstudent implements Comparator<Student> {
+
+    @Override
+    public int compare(Student s1, Student s2) {// 두 객체를 비교
+        return Integer.compare(s2.getId(), s1.getId()); 
+    }
+
+    public int compare(Student s1, Student s2) { 
+        return s2.getName().compareTo(s1.getName());// ID 뿐만아니라 이름이나 다른것도 상황에 맞춰 정렬할 수 있다.
+    }                                               //compare가 아니라 compareTO를 쓴다.
+                                                    // 비교대상의 위치를 바꿔서 내림차순할 수 있다. (왼쪽부터 오른쪽 순 = 오름차순)
+
+}
 
 
+```
 
-
-
-
-
-
------------------
+------------
 
 ## LinkedList
 
@@ -433,6 +507,7 @@ List < String > list = List.of("a", "b", "c");
     }
 
 ```
+
 ### for vs iterator
 
 > 배열변경 없이 루프만 한다고 하면 향상된 for루프를 사용하는 것이 좋고, 배열이 변경되는 작업을 하려면 iterator를 사용하는 것이 더 좋다.
@@ -478,7 +553,6 @@ List < String > list = List.of("a", "b", "c");
     wordsAL==>[apple]
 ```
 
-
 ### List type 오토박싱
 
 > List 컬렉션은 기본 타입을 저장하지 못하지만 요소에 기본타입을 넣었을 경우 내부족으로 오토박싱을 시켜준다.
@@ -492,19 +566,20 @@ List < String > list = List.of("a", "b", "c");
     values.get(2)
     $46==>1
 
-    values.get(2) instanceof Integer //Integer타입에 속한 객체가 됐음.
+    values.get(2)instanceof Integer //Integer타입에 속한 객체가 됐음.
     $47==>true
 
-    values.get(1) instanceof Character
+    values.get(1)instanceof Character
     $48==>true
 
-    
-    List<String> values = List.of("A",'A',1,1.0)// 타입이 정해지면 오류가 난다.
-    |  Error:
-    |  incompatible types: inference variable E has incompatible bounds
-    |      equality constraints: java.lang.String
-    |      lower bounds: java.lang.Double,java.lang.Integer,java.lang.Character,java.lang.String
-    |  List<String> values = List.of("A",'A',1,1.0);
-    |                        ^--------------------^e
+
+    List<String>values=List.of("A",'A',1,1.0)// 타입이 정해지면 오류가 난다.
+    |Error:
+    |incompatible types:inference variable E has incompatible bounds
+    |equality constraints:java.lang.String
+    |lower bounds:java.lang.Double,java.lang.Integer,java.lang.Character,java.lang.String
+    |List<String>values=List.of("A",'A',1,1.0);
+    |^--------------------^
   ```
+
 ----------------
