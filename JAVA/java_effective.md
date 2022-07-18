@@ -794,6 +794,8 @@ int[] intArr = {1, 2, 3, 4, 5};
 
 - `collect`
 
+> Stream의 요소들을 List나 Set, Map 등 다른 종류의 결과로 수집하고 싶은 경우 사용.
+
 ```java
  class Student {
     public enum Gender {Male, Female}
@@ -842,6 +844,64 @@ public class CollectExample {
                 .collect(Collectors.toCollection(HashSet::new)); // set으로 나옴. 순서 상관 없음
 
         femaleSet.stream().forEach(n -> System.out.println(n.getName()));
+    }
+}
+```
+
+---------
+
+## Optional<T>
+
+> null 값으로 인해 에러가 발생하는 현상을 객체 차원에서 효율적으로 방지하고자 도입됐다.
+
+- 모든 타입의 객체를 담을 수 있는 wrapper 클래스이다.
+
+```jshelllanguage
+public final class Optional<T> {
+    private final T value; // T타입의 참조변수
+}
+```
+
+- Optional 객체를 생성하려면 `of()`나 참조변수의 값이 null일 가능성이 있다면, `ofNullable()`을 사용한다.
+
+```jshelllanguage
+Optional < String > opt1 = Optional.ofNullable(null);
+    Optional < String > opt2 = Optional.ofNullable("123");
+    System.out.println(opt1.isPresent()); //Optional 객체의 값이 null인지 여부를 리턴한다. false
+    System.out.println(opt2.isPresent()); //true
+
+```
+
+- 참조변수를 기본값으로 초기화하려면 `empty()` 메서드를 사용한다.
+- 참조변수의 값이 null일 가능성이 있다면 orElse()메서드를 사용해 디폴트 값을 지정할 수 있다.
+
+```jshelllanguage
+Optional < String > opt3 = Optional.<String>empty();
+    String name = Optional.ofNullable(nullName).orElse("aaa");
+```
+
+- 객체에 저장된 값을 가져오려면 `get()`을 사용한다.
+
+```jshelllanguage
+jshell > List.of(23, 45, 67, 12).stream().filter(num -> num % 2 == 0).max((n1, n2) -> Integer.compare(n1, n2))
+    $1 ==>Optional[12] //스트림은 optional 값을 반환한다.
+    jshell>$1.get() //get을 사용하여 optional에서 값을 추출할 수 있다.
+    $2==>12
+```
+
+- 스트림과 유사하게 여러 메서드를 연결해서 작성할 수 있다.
+
+```jshelllanguage
+public class OptionalExample {
+    public static void main(String[] args) {
+        List<String> languages = Arrays.asList(
+                "Ruby", "Python", "Java", "Go", "Kotlin");
+        Optional<List<String>> listOptional = Optional.of(languages);
+
+        int size = listOptional
+                .map(List::size) //리스트의 크기로 바꾼다.
+                .orElse(0); //초기값을 0으로 한다.
+        System.out.println(size); //list의 크기 5
     }
 }
 ```
