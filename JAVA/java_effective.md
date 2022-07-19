@@ -874,7 +874,7 @@ Optional < String > opt1 = Optional.ofNullable(null);
 ```
 
 - 참조변수를 기본값으로 초기화하려면 `empty()` 메서드를 사용한다.
-- 참조변수의 값이 null일 가능성이 있다면 `orElse()`메서드를 사용해 디폴트 값을 지정할 수 있다.
+- 참조변수의 값이 null일 가능성이 있다면 `orElse()`메서드를 사용해 디폴트 값을 지정할 수 있다. get()이랑 같이 못씀.
 
 ```jshelllanguage
 Optional < String > opt3 = Optional.<String>empty();
