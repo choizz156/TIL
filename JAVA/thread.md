@@ -241,4 +241,3 @@ ublic boolean withdraw(int money) {
 			}
 	}
 ```
-코드공부더하자
