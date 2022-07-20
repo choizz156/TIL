@@ -149,19 +149,27 @@ public class Thex {
     }
 }
 ```
+
 -------------
+
 ## Thread Life-cycle
+
 - New : 스레드가 생성됨. 아직 start()메서드로 인보크되지 않음.
 - Terminated/Dead : run() 메서드 안의 코드가 모두 실행 완료됨.
+
 > start() 메서드(실행 대기 상태로 만듦)가 수행된 후 3가지 상태
+
 - Running : 현재 스레드가 수행 중.
 - Runnable : 현재 스레드가 수행 중 이지는 않지만 언제든 수행 준비가 돼있음.
 - Blocked/Wating : 현재 스레드가 수행 중 이지도 않고, 준비도 안된 상태. 외부 리소스나 다른 스레드를 기다리고 있는
-상태 일 수 있음.
+  상태 일 수 있음.
 
 ---------
+
 ## Thread 우선순위
+
 > 우선 순위를(1~10) 부여할 수는 있지만 그냥 참고사항이다. 상황에 따라 반영되지 않을 수 있다.
+
 ```java
 public class Runner {
     public static void main(String[] args) {
@@ -178,66 +186,298 @@ public class Runner {
             System.out.print("#");
         }
         System.out.println("세번째 작업이 종료되었습니다.");
-        
-    //결과는 랜덤으로 나온다.
+
+        //결과는 랜덤으로 나온다.
     }
 }
 ```
+
 ----------------------
+
 ## Thread 이름
+
 > 메인 스레드는 main, 추가적으로 생성한 스레드는 기본적으로 Thread-n이라는 이름을 가진다.
+
 ### 스레드 이름 조회하기
+
 - `스레드참조변수.getName()`으로 조회할 수 있다.
+
 ### 스레드의 이름 설정하기
+
 - `스레드의_참조값.setName()`으로 설정할 수 있다.
+
 ### 스레드 인스턴스의 주소값 얻기
+
 - Thread 클래스의 정적 메서드인 `currentThread()`를 사용하면 된다.
 
 ----------------
+
 ## Thread 상태와 실행 제어
+
 > start() 메서드는 실행을 시키는 메서드가 아니라 `실행 대기 상태`로 만드는 메서드이다. 실행은 운영체제가 한다.
+
 ### 스레드 실행 제어 메서드
+
 - `sleep(long milliSecond)` : millisecond 동안 스레드를 잠시 멈춘다.
-  - sleep은 thread의 클래스 메서드이기 때문에 Thread.sleep(1000)과 같이 클래스를 통해서 호출되는 것이 권장된다.
-  - sleep을 호출하면 스레드의 상태가 실행 상태에서 time_wating 상태로 전환된다.
-  - 정지된 스레드는 시간이 경과한 경우나, interrupt()를 호출한 경우.
-    - interrupt를 호출한 경우는 try catch문을 사용해서 예외 처리를 해주어야한다.
-  - sleep 또한 try catch문으로 감싸주고 사용한다.
+    - sleep은 thread의 클래스 메서드이기 때문에 Thread.sleep(1000)과 같이 클래스를 통해서 호출되는 것이 권장된다.
+    - sleep을 호출하면 스레드의 상태가 실행 상태에서 time_wating 상태로 전환된다.
+    - 정지된 스레드는 시간이 경과한 경우나, interrupt()를 호출한 경우.
+        - interrupt를 호출한 경우는 try catch문을 사용해서 예외 처리를 해주어야한다.
+    - sleep 또한 try catch문으로 감싸주고 사용한다.
 - `interrupt()` : 일시 중지 상태인 스레드를 실행 대기 상태로 복귀 시킨다.
 - `yield()` : 다른 스레드에게 실행을 양보한다.(static 메서드)
-  - yield()를 호출하면 자신에게 남은 실행 시간을 실행 대기열 상 우선순위가 높은 다른 스레드에게 양보한다.
+    - yield()를 호출하면 자신에게 남은 실행 시간을 실행 대기열 상 우선순위가 높은 다른 스레드에게 양보한다.
 - `join()` : join을 호출한 스레드가 다 끝난 후 다음 스레드가 실행된다.
 - 예외가 발생할 수 있으므로 try catch문을 사용한다.
 - `notify(), wait()` : 두 스레드가 교대로 작업을 처리해야할 때 사용.
-  - 스레드1 작업완료 -> notify() 호출 -> 스레드 2가 실행대기 상태가 됨-> 스레드1 wait()호출해서 일시 정지
--> 스레드2 작업완료 notify() 호출 -> 일시 중지 됐던 스레드1 실행 대기 상태 -> 스레드2 wait()호출해서 일시정지.
+    - 스레드1 작업완료 -> notify() 호출 -> 스레드 2가 실행대기 상태가 됨-> 스레드1 wait()호출해서 일시 정지
+      -> 스레드2 작업완료 notify() 호출 -> 일시 중지 됐던 스레드1 실행 대기 상태 -> 스레드2 wait()호출해서 일시정지.
 
 ---------------------
+
 ## Thread 동기화
+
 > 두 스레드가 동일한 데이터를 공유하게(하나의 객체) 되어 문제가 발생할 수 있다. 이를 위해 스레드 동기화가 필요하다.
+
 - `임계 영역(critical section)` :오로지 하나의 스레드만 코드를 실행할 수 있는 코드 영역.
 - `락(Lock)` : 임계 영역을 포함하고 있는 객체에 접근할 수 있는 권한.
->임계 영역으로 설정된 객체가 다른 스레드에 의해 작업이 이루어지고 있지 않을 때, 임이의 스레드 A는 해당 객체에 대한
-락을 획득하여 임계 영역 내의 코드를 실행할 수 있다.
-이때 , 다른 스레드들은 락이 없으므로 이 객체의 임계 영역 내의 코드를 실행할 수 없다.
-스레드가 임계 영역 내의 코드를 모두 실행하면 락을 반납하고 다른 스레드가 락을 획득한다.
+
+> 임계 영역으로 설정된 객체가 다른 스레드에 의해 작업이 이루어지고 있지 않을 때, 임이의 스레드 A는 해당 객체에 대한
+> 락을 획득하여 임계 영역 내의 코드를 실행할 수 있다.
+> 이때 , 다른 스레드들은 락이 없으므로 이 객체의 임계 영역 내의 코드를 실행할 수 없다.
+> 스레드가 임계 영역 내의 코드를 모두 실행하면 락을 반납하고 다른 스레드가 락을 획득한다.
 
 ### 임계 영역 설정(`synchronized`)
+
 - 메서드 전체를 임계 영역으로 지정
-  - 메서드의 반환 타입 좌측에 synchronized 키워드를 작성한다.
-  - 메서드가 호출되었을 때, 메서드를 실행할 스레드는 메서드가 포함된 객체의 락을 얻는다.
+    - 메서드의 반환 타입 좌측에 synchronized 키워드를 작성한다.
+    - 메서드가 호출되었을 때, 메서드를 실행할 스레드는 메서드가 포함된 객체의 락을 얻는다.
 - 특정 영역을 임계영역으로 지정
-  - synchronized 키워드와 함께 소괄호 안에 해당 영역이 포함된 객체의 참조를 넣고. 중괄호로 블럭을 열어 블럭내에 코드를 작성한다.
-  - 코드 실행 흐름이 진입할 때 코드를 실행하고 있는 스레드가 소괄호 안의 객체에 락을 얻고, 배타적으로 코드를 실행한다.
+    - synchronized 키워드와 함께 소괄호 안에 해당 영역이 포함된 객체의 참조를 넣고. 중괄호로 블럭을 열어 블럭내에 코드를 작성한다.
+    - 코드 실행 흐름이 진입할 때 코드를 실행하고 있는 스레드가 소괄호 안의 객체에 락을 얻고, 배타적으로 코드를 실행한다.
+
 ```jshelllanguage
 ublic boolean withdraw(int money) {
-			synchronized (this) {
-			    if (balance >= money) {
-			        try { Thread.sleep(1000); } catch (Exception error) {}
-			        balance -= money;
-			        return true;
-			    }
-			    return false;
-			}
-	}
+    synchronized (this) {
+        if (balance >= money) {
+            try {
+                Thread.sleep(1000);
+            } catch (Exception error) {
+            }
+            balance -= money;
+            return true;
+        }
+        return false;
+    }
+}
 ```
+
+------------------------
+
+## ExecutorService
+
+- 스레드를 더 직관적으로 만들고 수행할 수 있게 한다.
+- 스레드 상태를 더 쉽게 관리할 수 있다.
+- 스레드들을 동기화 시킨다.
+- 스레드 그룹을 깔끔하게 관리한다.
+
+### newSingleThreadExecutor()
+
+> 한 번에 하나의 스레드만 작동시키는 메서드.
+
+```java
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+
+public class ExecutorServiceRunner {
+
+    //ExecutorService = 인터페이스
+    // Executors = 클래스
+    // newSingleThreadExecutor() = 메서드
+
+    public static void main(String[] args) {
+        ExecutorService executorService = Executors.newSingleThreadExecutor(); // 하나의 스레드만 실행시킴
+        executorService.execute(new Task1());//이것부터 수행됨.
+        executorService.execute(new Thread(new Task2()));// 그 다음 이것이 수행됨.
+
+        executorService.shutdown(); // 이것을 붙여줘야 ExecutorService가 종료됨.
+    }
+}
+
+class Task1 extends Thread {
+    public void run() {
+        System.out.println("Task1 started");
+        for (int i = 0; i < 100; i++) {
+            System.out.print(i + " ");
+        }
+        System.out.println("\nTask1 Done");
+    }
+}
+
+class Task2 implements Runnable {
+    public void run() {
+        System.out.println("Task2 started");
+        for (int i = 101; i < 200; i++) {
+            System.out.print(i + " ");
+        }
+        System.out.println("\nTask2 Done");
+    }
+}
+```
+
+```java
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+
+public class ExecutorServiceRunner {
+    public static void main(String[] args) {
+        ExecutorService executorService = Executors.newSingleThreadExecutor();
+        executorService.execute(new Task1());
+        executorService.execute(new Thread(new Task2()));
+
+        //Task3 이것은 메인 스레드가 수행함.
+        for (int i = 301; i <= 399; i++) {
+            System.out.print(i + " ");
+        }
+        System.out.println("\nTask3 Done");
+        System.out.println("\nMain Done");
+        executorService.shutdown();
+        
+        /*main 스레드가 수행하는 Task3은 병렬적으로 수행되지만 ExecutroService가 수행하는 Task1과 Task2는
+        순서대로 수행된다.*/
+    }
+}
+
+
+```
+
+### newFixedThreadPool()
+
+> 한 번에 실행가능한 스레드의 개수를 지정함.
+
+```java
+public class ExecutorServiceRunner {
+    public static void main(String[] args) {
+        ExecutorService executorService = Executors.newFixedThreadPool(2);// 한 번에 수행할 수 있는 최대 스레드 개수를 지정
+        executorService.execute(new Task(1));
+        executorService.execute(new Task(2));
+        executorService.execute(new Task(3));
+        executorService.execute(new Task(4));
+        executorService.execute(new Task(5));
+
+
+        executorService.shutdown();
+    }
+}
+
+class Task extends Thread {
+    private int num;
+
+    public Task(int num) {
+        this.num = num;
+    }
+
+    public void run() {
+        System.out.println("Task " + num + " started");
+        for (int i = 100 * num; i < 100 * num + 99; i++) {
+            System.out.print(i + " ");
+        }
+        System.out.println("\nTask " + num + " Done");
+    }
+}
+
+/* 한 스레드가 종료되면 다른 스레드가 수행되는 식으로 한 번에 2개의 스레드가 수행된다.*/
+
+```
+## Callable 인터페이스
+### submit()
+> 스레드로 부터 리턴값을 얻을 수 있다.
+```java
+public class ExecutorServiceRunner {
+    public static void main(String[] args) throws ExecutionException, InterruptedException {
+        ExecutorService executorService = Executors.newFixedThreadPool(1);//하나의 스레드만 사용한다.
+      //Future인터페이스 : 결과가 나올것이라는 약속??정도로 이해  
+      Future<String> welcome = executorService.submit(new CallableTask("alstjr32"));
+      // execute대신 submit을 사용해서 Future에 담는다. 리턴 값이 Future타입 객체라고 보면 된다.
+        
+        System.out.println("asdfadsfasdf");
+        String a = welcome.get();
+        //Future에 get메서드를 사용하면 CallableTask가 완료될때까지 get에서 결과를 기다리고 있음
+        //get에서 결과를 받으면 나머지 코드가 실행됨.
+        System.out.println(a);//출력한다.
+        System.out.println("welcomemessage");//메인스레드는 get() 수행이 끝나기를 기다렸다 수행된다.
+        
+        executorService.shutdown();
+    }
+}
+/*
+asdfadsfasdf
+Hello alstjr32
+welcomemessage
+ */
+
+class CallableTask implements Callable<String>{ //Callable인터페이스를 사용하여 리턴값을 얻는다.
+
+    private String name;
+
+    public CallableTask(String name){
+         this.name = name;
+     }
+
+    @Override
+    public String call() throws Exception { //run말고 call이라는 메서드를 사용한다.
+        return "Hello " + name;
+    }
+}
+
+```
+### invokeAll()
+> 리턴 값을 한번에 모을 수 있다.
+```java
+public class ExecutorServiceRunner {
+    public static void main(String[] args) throws ExecutionException, InterruptedException {
+        ExecutorService executorService = Executors.newFixedThreadPool(3);
+       List<CallableTask> tasks = List.of(new CallableTask("a"), new CallableTask("b")
+                                   ,new CallableTask("c"));
+       List<Future<String>/*Future 타입이다.*/> welcomeAll = executorService.invokeAll(tasks);//invokeAll을 사용하여 요소들을 한번에 모은다.
+       for(Future<String> a : welcomeAll){
+           System.out.println(a.get());
+       }
+        executorService.shutdown();
+    }
+}
+/*한번에 모든 값이 리턴된다.*/
+
+class CallableTask implements Callable<String>{
+
+    private String name;
+
+    public CallableTask(String name){
+         this.name = name;
+     }
+
+    @Override
+    public String call() throws Exception {
+        Thread.sleep(1000);
+        return "Hello " + name;
+    }
+}
+
+
+```
+### invokeAny()
+> 가장 먼저 끝난 결과를 리턴한다.
+```java
+public class ExecutorServiceRunner {
+    public static void main(String[] args) throws ExecutionException, InterruptedException {
+        ExecutorService executorService = Executors.newFixedThreadPool(3);
+       List<CallableTask> tasks = List.of(new CallableTask("a"), new CallableTask("b")
+                                   ,new CallableTask("c"));
+       Stirng a/*Future 타입으로 리턴되지 않고 coll메서드의 리턴값으로 리턴된다. */ = executorService.invokeAny(tasks);//가장 먼저 수행이된 값부터 리턴한다.
+      System.out.println(a);
+        executorService.shutdown();
+    }
+}
+/*a,b,c 중 먼저 완료된 것이 리턴된다.*/
+```
+----------------------
